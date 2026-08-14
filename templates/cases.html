@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Case Files - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Case Investigation Files</h1>
+        <p>Active criminal investigation files, officer assignments, and legal case tracking.</p>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="crms-card mb-4">
+    <div class="crms-card-body py-3">
+        <form method="GET" action="{{ url_for('cases_list') }}" class="row g-2 align-items-center">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" name="search" class="form-control" placeholder="Search case number, FIR number, officer, crime..." value="{{ request.args.get('search', '') }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select name="status" class="form-select">
+                    <option value="">All Case Statuses</option>
+                    <option value="Active" {% if request.args.get('status') == 'Active' %}selected{% endif %}>Active</option>
+                    <option value="In Court" {% if request.args.get('status') == 'In Court' %}selected{% endif %}>In Court</option>
+                    <option value="Solved" {% if request.args.get('status') == 'Solved' %}selected{% endif %}>Solved</option>
+                    <option value="Pending" {% if request.args.get('status') == 'Pending' %}selected{% endif %}>Pending</option>
+                    <option value="Closed" {% if request.args.get('status') == 'Closed' %}selected{% endif %}>Closed</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="priority" class="form-select">
+                    <option value="">All Priorities</option>
+                    <option value="High" {% if request.args.get('priority') == 'High' %}selected{% endif %}>High Priority</option>
+                    <option value="Medium" {% if request.args.get('priority') == 'Medium' %}selected{% endif %}>Medium Priority</option>
+                    <option value="Low" {% if request.args.get('priority') == 'Low' %}selected{% endif %}>Low Priority</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-secondary w-100 fw-bold">Filter</button>
+                <a href="{{ url_for('cases_list') }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Cases Table -->
+<div class="crms-card">
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Case Number</th>
+                        <th>FIR Number</th>
+                        <th>Crime Type</th>
+                        <th>Investigating Officer</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in cases %}
+                    <tr>
+                        <td class="fw-bold"><a href="{{ url_for('case_details', case_id=c.case_id) }}" class="text-primary text-decoration-none fs-6">{{ c.case_number }}</a></td>
+                        <td><span class="badge bg-light text-dark font-monospace border">{{ c.fir_number }}</span></td>
+                        <td class="fw-semibold">{{ c.crime_type }}</td>
+                        <td>
+                            {% if c.officer_name %}
+                                <i class="bi bi-person-badge text-muted me-1"></i> {{ c.officer_name }}
+                            {% else %}
+                                <span class="text-muted fst-italic">Unassigned</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if c.priority == 'High' %}
+                                <span class="badge-status badge-high"><i class="bi bi-fire"></i> High</span>
+                            {% elif c.priority == 'Medium' %}
+                                <span class="badge-status badge-medium">Medium</span>
+                            {% else %}
+                                <span class="badge-status badge-low">Low</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if c.case_status == 'Active' %}
+                                <span class="badge-status badge-active"><i class="bi bi-play-circle-fill"></i> Active</span>
+                            {% elif c.case_status == 'Solved' %}
+                                <span class="badge-status badge-solved"><i class="bi bi-check-circle-fill"></i> Solved</span>
+                            {% elif c.case_status == 'In Court' %}
+                                <span class="badge-status badge-critical"><i class="bi bi-bank"></i> In Court</span>
+                            {% elif c.case_status == 'Pending' %}
+                                <span class="badge-status badge-pending"><i class="bi bi-hourglass"></i> Pending</span>
+                            {% else %}
+                                <span class="badge-status badge-closed">{{ c.case_status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ c.start_date }}</td>
+                        <td class="text-end">
+                            <a href="{{ url_for('case_details', case_id=c.case_id) }}" class="btn btn-sm btn-light border fw-bold text-primary">
+                                <i class="bi bi-folder2-open me-1"></i> Case File
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-muted">No case files match your search criteria.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Arrest Records - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Master Arrest Records</h1>
+        <p>Log of suspect apprehensions, custody status, and arresting officers.</p>
+    </div>
+</div>
+
+<div class="crms-card">
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Arrest ID</th>
+                        <th>Criminal / Suspect</th>
+                        <th>Associated Case</th>
+                        <th>Arrest Date & Time</th>
+                        <th>Arrest Location</th>
+                        <th>Arresting Officer</th>
+                        <th>Current Custody Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in arrests %}
+                    <tr>
+                        <td class="fw-bold text-muted">#ARR-{{ a.arrest_id }}</td>
+                        <td class="fw-bold">
+                            <a href="{{ url_for('criminal_details', criminal_id=a.criminal_id) }}" class="text-primary text-decoration-none">{{ a.criminal_name }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('case_details', case_id=a.case_id) }}" class="fw-semibold text-dark text-decoration-none">{{ a.case_number }}</a>
+                        </td>
+                        <td>{{ a.arrest_date }}</td>
+                        <td>{{ a.arrest_location }}</td>
+                        <td>{{ a.officer_name|default('Unassigned') }}</td>
+                        <td>
+                            {% if a.arrest_status == 'In Lockup' %}
+                                <span class="badge-status badge-active"><i class="bi bi-lock-fill me-1"></i> In Lockup</span>
+                            {% elif a.arrest_status == 'Bailed' %}
+                                <span class="badge-status badge-pending"><i class="bi bi-unlock-fill me-1"></i> Bailed</span>
+                            {% elif a.arrest_status == 'Transferred to Prison' %}
+                                <span class="badge-status badge-closed"><i class="bi bi-building me-1"></i> In Prison</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ a.arrest_status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">No arrest records logged.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

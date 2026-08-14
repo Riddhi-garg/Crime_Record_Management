@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results for "{{ query }}" - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Global Search Results</h1>
+        <p>Found matches for <strong class="text-primary">"{{ query }}"</strong> across database entities.</p>
+    </div>
+</div>
+
+<!-- Criminal Matches -->
+<div class="crms-card mb-4">
+    <div class="crms-card-header">
+        <h5><i class="bi bi-person-badge-fill me-2 text-primary"></i> Criminal Records ({{ results.criminals|length }})</h5>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Criminal Name</th>
+                        <th>Alias</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in results.criminals %}
+                    <tr>
+                        <td class="fw-bold">{{ c.name }}</td>
+                        <td>{{ c.alias|default('-') }}</td>
+                        <td><span class="badge bg-danger">{{ c.status }}</span></td>
+                        <td>
+                            <a href="{{ url_for('criminal_details', criminal_id=c.criminal_id) }}" class="btn btn-sm btn-light border">View Profile</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-muted py-2 text-center">No criminal record matches found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Case Matches -->
+<div class="crms-card mb-4">
+    <div class="crms-card-header">
+        <h5><i class="bi bi-folder-fill me-2 text-primary"></i> Case Files ({{ results.cases|length }})</h5>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Case Number</th>
+                        <th>FIR Number</th>
+                        <th>Crime Type</th>
+                        <th>Officer</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cs in results.cases %}
+                    <tr>
+                        <td class="fw-bold">{{ cs.case_number }}</td>
+                        <td><span class="badge bg-light text-dark font-monospace border">{{ cs.fir_number }}</span></td>
+                        <td>{{ cs.crime_type }}</td>
+                        <td>{{ cs.officer_name|default('Unassigned') }}</td>
+                        <td><span class="badge bg-info text-dark">{{ cs.case_status }}</span></td>
+                        <td>
+                            <a href="{{ url_for('case_details', case_id=cs.case_id) }}" class="btn btn-sm btn-light border">Open Case</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-muted py-2 text-center">No case file matches found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- FIR Matches -->
+<div class="crms-card mb-4">
+    <div class="crms-card-header">
+        <h5><i class="bi bi-file-earmark-text-fill me-2 text-warning"></i> First Information Reports ({{ results.firs|length }})</h5>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>FIR Number</th>
+                        <th>Filing Date</th>
+                        <th>Complainant</th>
+                        <th>Station</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in results.firs %}
+                    <tr>
+                        <td class="fw-bold font-monospace">{{ f.fir_number }}</td>
+                        <td>{{ f.filing_date }}</td>
+                        <td>{{ f.victim_name }}</td>
+                        <td>{{ f.station_name }}</td>
+                        <td><span class="badge bg-success">{{ f.status }}</span></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-muted py-2 text-center">No FIR record matches found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

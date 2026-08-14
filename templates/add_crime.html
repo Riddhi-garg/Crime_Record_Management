@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Register Crime Incident - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <a href="{{ url_for('crimes') }}" class="text-decoration-none text-muted small fw-bold mb-1 d-inline-block">
+            <i class="bi bi-arrow-left me-1"></i> Back to Crime Registry
+        </a>
+        <h1>Register New Crime Incident</h1>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="crms-card">
+            <div class="crms-card-header bg-navy text-white" style="background-color: #0f172a;">
+                <h5 class="modal-title text-white"><i class="bi bi-exclamation-octagon-fill me-2 text-warning"></i> Incident Information Form</h5>
+            </div>
+            <div class="crms-card-body p-4">
+                <form action="{{ url_for('add_crime') }}" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Crime Offence Type *</label>
+                            <input type="text" name="crime_type" class="form-control" placeholder="e.g. Armed Robbery, Cyber Fraud, Homicide" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small">Severity Level *</label>
+                            <select name="severity" class="form-select" required>
+                                <option value="Major" selected>Major</option>
+                                <option value="Critical">Critical</option>
+                                <option value="Minor">Minor</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small">Initial Status *</label>
+                            <select name="status" class="form-select" required>
+                                <option value="Reported" selected>Reported</option>
+                                <option value="Under Investigation">Under Investigation</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Date of Incident *</label>
+                            <input type="date" name="crime_date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Approximate Time of Incident</label>
+                            <input type="time" name="crime_time" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Incident Address / Location *</label>
+                            <input type="text" name="location" class="form-control" placeholder="Street address or venue landmark" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small">City *</label>
+                            <input type="text" name="city" class="form-control" placeholder="Metro City" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold small">State *</label>
+                            <input type="text" name="state" class="form-control" placeholder="State North" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">Detailed Crime Incident Narrative *</label>
+                            <textarea name="description" class="form-control" rows="4" placeholder="Provide full details of the offence, weapons involved, estimated damages, initial findings..." required></textarea>
+                        </div>
+
+                        <div class="col-12 text-end pt-3">
+                            <a href="{{ url_for('crimes') }}" class="btn btn-light me-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-4 fw-bold shadow-sm">
+                                <i class="bi bi-check-circle-fill me-1"></i> Submit Crime Incident
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

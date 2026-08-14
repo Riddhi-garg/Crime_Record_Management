@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Police Stations Directory - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Police Stations & Precincts</h1>
+        <p>Administrative police stations directory and regional breakdown.</p>
+    </div>
+    {% if session.get('role') == 'Admin' %}
+    <button type="button" class="btn btn-primary shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#addStationModal">
+        <i class="bi bi-building-add me-1"></i> Add Police Station
+    </button>
+    {% endif %}
+</div>
+
+<div class="row g-4 mb-4">
+    {% for st in stations %}
+    <div class="col-md-6 col-xl-4">
+        <div class="crms-card h-100 mb-0">
+            <div class="crms-card-header bg-navy text-white" style="background-color: #0f172a;">
+                <h5 class="text-white mb-0"><i class="bi bi-building me-2 text-primary"></i> {{ st.station_name }}</h5>
+                <span class="badge bg-secondary">{{ st.city }}</span>
+            </div>
+            <div class="crms-card-body">
+                <div class="mb-2 text-secondary">
+                    <i class="bi bi-geo-alt-fill text-danger me-1"></i> <strong>Address:</strong> {{ st.address }}, {{ st.city }}, {{ st.state }}
+                </div>
+                <div class="mb-3 text-secondary">
+                    <i class="bi bi-telephone-fill text-success me-1"></i> <strong>Contact:</strong> {{ st.contact_number }}
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded border">
+                    <span class="small fw-semibold text-muted">STATION STAFFING</span>
+                    <span class="badge bg-primary fs-6">{{ st.officer_count|default(0) }} Officers</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center py-5 text-muted">No police stations registered in database.</div>
+    {% endfor %}
+</div>
+
+<!-- Modal Add Station -->
+<div class="modal fade" id="addStationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url_for('add_station') }}" method="POST">
+                <div class="modal-header bg-navy text-white" style="background-color: #0f172a;">
+                    <h5 class="modal-title text-white"><i class="bi bi-building-add me-2 text-primary"></i> Register New Police Station</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row g-3">
+                    <div class="col-12">
+                        <label class="form-label fw-bold small">Station Name *</label>
+                        <input type="text" name="station_name" class="form-control" placeholder="e.g. Central Precinct" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold small">Address *</label>
+                        <input type="text" name="address" class="form-control" placeholder="Street address" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">City *</label>
+                        <input type="text" name="city" class="form-control" placeholder="Metro City" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small">State *</label>
+                        <input type="text" name="state" class="form-control" placeholder="State North" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold small">Contact Phone Number *</label>
+                        <input type="text" name="contact_number" class="form-control" placeholder="011-23456789" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary fw-bold">Register Station</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

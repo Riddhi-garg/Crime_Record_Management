@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Crime Record Management System{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header">
+    <div>
+        <h1>System Overview Dashboard</h1>
+        <p>Real-time analytics and criminal investigation metrics.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('register_fir') }}" class="btn btn-primary shadow-sm fw-bold">
+            <i class="bi bi-file-earmark-plus-fill me-1"></i> Register FIR
+        </a>
+        <a href="{{ url_for('add_crime') }}" class="btn btn-dark shadow-sm fw-bold">
+            <i class="bi bi-plus-lg me-1"></i> Add Crime
+        </a>
+    </div>
+</div>
+
+<!-- Stat Cards Grid (8 Core Metrics) -->
+<div class="row g-3 mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-blue">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.total_crimes }}</h3>
+                <p>Total Crimes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-orange">
+                <i class="bi bi-folder-symlink-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.active_cases }}</h3>
+                <p>Active Cases</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-green">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.solved_cases }}</h3>
+                <p>Solved Cases</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-red">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.pending_cases }}</h3>
+                <p>Pending Cases</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-navy">
+                <i class="bi bi-person-badge-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.total_criminals }}</h3>
+                <p>Total Criminals</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-purple">
+                <i class="bi bi-person-workspace"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.total_officers }}</h3>
+                <p>Police Officers</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-blue">
+                <i class="bi bi-file-earmark-text-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.total_firs }}</h3>
+                <p>Total FIRs Filed</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper icon-navy">
+                <i class="bi bi-building"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{ stats.total_stations }}</h3>
+                <p>Police Stations</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Section -->
+<div class="row g-3 mb-4">
+    <!-- Chart 1: Crime Trends by Month -->
+    <div class="col-lg-8">
+        <div class="crms-card h-100 mb-0">
+            <div class="crms-card-header">
+                <h5><i class="bi bi-graph-up me-2 text-primary"></i> Crime Incident Trends by Month</h5>
+                <span class="badge bg-light text-dark">2026 Analytics</span>
+            </div>
+            <div class="crms-card-body">
+                <div style="height: 260px;">
+                    <canvas id="crimesByMonthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart 2: Crime Categories Breakdown -->
+    <div class="col-lg-4">
+        <div class="crms-card h-100 mb-0">
+            <div class="crms-card-header">
+                <h5><i class="bi bi-pie-chart-fill me-2 text-primary"></i> Crimes by Category</h5>
+            </div>
+            <div class="crms-card-body">
+                <div style="height: 260px;">
+                    <canvas id="crimesByCategoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <!-- Chart 3: Solved vs Unsolved -->
+    <div class="col-lg-4">
+        <div class="crms-card mb-0">
+            <div class="crms-card-header">
+                <h5><i class="bi bi-check2-square me-2 text-success"></i> Case Resolution Status</h5>
+            </div>
+            <div class="crms-card-body">
+                <div style="height: 230px;">
+                    <canvas id="solvedVsUnsolvedChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart 4: Location Breakdown -->
+    <div class="col-lg-8">
+        <div class="crms-card mb-0">
+            <div class="crms-card-header">
+                <h5><i class="bi bi-geo-alt-fill me-2 text-danger"></i> Incident Distribution by Precinct / Location</h5>
+            </div>
+            <div class="crms-card-body">
+                <div style="height: 230px;">
+                    <canvas id="crimesByLocationChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Case Files Table -->
+<div class="crms-card">
+    <div class="crms-card-header">
+        <h5><i class="bi bi-clock-history me-2 text-primary"></i> Recent Case Investigation Files</h5>
+        <a href="{{ url_for('cases_list') }}" class="btn btn-sm btn-outline-primary fw-bold">View All Cases</a>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Case Number</th>
+                        <th>FIR No.</th>
+                        <th>Crime Type</th>
+                        <th>Location</th>
+                        <th>Investigating Officer</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for case in recent_cases %}
+                    <tr>
+                        <td class="fw-bold"><a href="{{ url_for('case_details', case_id=case.case_id) }}" class="text-decoration-none text-primary">{{ case.case_number }}</a></td>
+                        <td><span class="badge bg-light text-dark font-monospace">{{ case.fir_number }}</span></td>
+                        <td class="fw-semibold">{{ case.crime_type }}</td>
+                        <td>{{ case.location }}</td>
+                        <td>
+                            {% if case.officer_name %}
+                                <i class="bi bi-shield me-1 text-muted"></i> {{ case.officer_name }}
+                            {% else %}
+                                <span class="text-muted fst-italic">Unassigned</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if case.case_status == 'Active' %}
+                                <span class="badge-status badge-active"><i class="bi bi-play-circle-fill"></i> Active</span>
+                            {% elif case.case_status == 'Solved' %}
+                                <span class="badge-status badge-solved"><i class="bi bi-check-circle-fill"></i> Solved</span>
+                            {% elif case.case_status == 'Pending' %}
+                                <span class="badge-status badge-pending"><i class="bi bi-hourglass-split"></i> Pending</span>
+                            {% elif case.case_status == 'In Court' %}
+                                <span class="badge-status badge-critical"><i class="bi bi-bank"></i> In Court</span>
+                            {% else %}
+                                <span class="badge-status badge-closed">{{ case.case_status }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-muted">{{ case.start_date }}</td>
+                        <td>
+                            <a href="{{ url_for('case_details', case_id=case.case_id) }}" class="btn btn-sm btn-light border">
+                                <i class="bi bi-eye-fill me-1"></i> Details
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">No recent case records found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Embed JSON data for Chart.js initialization -->
+<script>
+    window.crmsChartData = {
+        months: {{ charts_data.months | tojson }},
+        categories: {{ charts_data.categories | tojson }},
+        status: {{ charts_data.status | tojson }},
+        locations: {{ charts_data.locations | tojson }}
+    };
+</script>
+{% endblock %}

@@ -1,0 +1,508 @@
+/* ============================================================================
+   Crime Record Management System (CRMS) - Main Stylesheet
+   Navy Blue Government/Police Administrative Dashboard Design
+   ============================================================================ */
+
+:root {
+    /* Color Palette */
+    --primary-navy: #0f172a;
+    --secondary-navy: #1e293b;
+    --accent-blue: #2563eb;
+    --hover-blue: #1d4ed8;
+    --light-bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    
+    /* Status Badges Colors */
+    --status-active: #2563eb;      /* Blue */
+    --status-pending: #d97706;     /* Orange */
+    --status-solved: #16a34a;      /* Green */
+    --status-closed: #64748b;      /* Gray */
+    --status-high: #dc2626;        /* Red */
+    
+    /* Layout Variables */
+    --sidebar-width: 260px;
+    --topbar-height: 70px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* ----------------------------------------------------------------------------
+   Layout Structure
+   ---------------------------------------------------------------------------- */
+#wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Navigation */
+#sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--primary-navy);
+    color: #ffffff;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    height: var(--topbar-height);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background-color: #090d16;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header .brand-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sidebar-header i {
+    color: #3b82f6;
+    font-size: 1.4rem;
+}
+
+.sidebar-menu {
+    padding: 1rem 0;
+    list-style: none;
+    margin: 0;
+}
+
+.sidebar-menu .menu-category {
+    padding: 0.75rem 1.5rem 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.8rem 1.5rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu li a:hover {
+    background-color: var(--secondary-navy);
+    color: #ffffff;
+}
+
+.sidebar-menu li.active a {
+    background-color: var(--secondary-navy);
+    color: #ffffff;
+    border-left-color: var(--accent-blue);
+}
+
+.sidebar-menu li a i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+.sidebar-menu li.active a i,
+.sidebar-menu li a:hover i {
+    color: #60a5fa;
+}
+
+/* Page Content */
+#page-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Top Navbar */
+.top-navbar {
+    height: var(--topbar-height);
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.global-search-form {
+    position: relative;
+    width: 380px;
+}
+
+.global-search-form input {
+    background-color: #f1f5f9;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.global-search-form input:focus {
+    background-color: #ffffff;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+.global-search-form i {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+.navbar-user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.user-badge-role {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.role-admin {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.role-officer {
+    background-color: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+}
+
+.user-profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--primary-navy);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+/* Content Container */
+.main-container {
+    padding: 2rem;
+    flex-grow: 1;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.75rem;
+}
+
+.page-header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin: 0;
+}
+
+.page-header p {
+    color: var(--text-muted);
+    margin: 0.2rem 0 0;
+    font-size: 0.9rem;
+}
+
+/* ----------------------------------------------------------------------------
+   Dashboard Stat Cards
+   ---------------------------------------------------------------------------- */
+.stat-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.35rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stat-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.icon-blue { background-color: #eff6ff; color: #2563eb; }
+.icon-orange { background-color: #fffbebfb; color: #d97706; }
+.icon-green { background-color: #f0fdf4; color: #16a34a; }
+.icon-red { background-color: #fef2f2; color: #dc2626; }
+.icon-purple { background-color: #faf5ff; color: #9333ea; }
+.icon-navy { background-color: #f1f5f9; color: #0f172a; }
+
+.stat-info h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--primary-navy);
+}
+
+.stat-info p {
+    margin: 0.15rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ----------------------------------------------------------------------------
+   Cards & Tables
+   ---------------------------------------------------------------------------- */
+.crms-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+}
+
+.crms-card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.crms-card-header h5 {
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.crms-card-body {
+    padding: 1.5rem;
+}
+
+.table-custom {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.table-custom th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.85rem 1rem;
+}
+
+.table-custom td {
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.table-custom tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Status Badges */
+.badge-status {
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.badge-active { background-color: #dbeafe; color: #1e40af; }
+.badge-pending { background-color: #fef3c7; color: #92400e; }
+.badge-solved { background-color: #dcfce7; color: #166534; }
+.badge-closed { background-color: #f1f5f9; color: #475569; }
+.badge-critical { background-color: #fee2e2; color: #991b1b; }
+.badge-high { background-color: #ffedd5; color: #9a3412; }
+.badge-medium { background-color: #fef9c3; color: #854d0e; }
+.badge-low { background-color: #f0fdf4; color: #166534; }
+
+/* ----------------------------------------------------------------------------
+   Case Investigation Timeline
+   ---------------------------------------------------------------------------- */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+    border-left: 2px solid #e2e8f0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.75rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-badge {
+    position: absolute;
+    left: -2.6rem;
+    top: 0.1rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+.timeline-content {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+}
+
+.timeline-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--primary-navy);
+    margin: 0;
+}
+
+.timeline-time {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* ----------------------------------------------------------------------------
+   Login Page Styling
+   ---------------------------------------------------------------------------- */
+.login-body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.login-card {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.login-header {
+    background-color: #090d16;
+    color: #ffffff;
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.login-header h3 {
+    font-weight: 800;
+    margin: 0.5rem 0 0.2rem;
+    letter-spacing: 0.5px;
+    font-size: 1.35rem;
+}
+
+.login-header p {
+    color: #94a3b8;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.login-body-content {
+    padding: 2rem;
+}
+
+/* ----------------------------------------------------------------------------
+   Responsive Utilities
+   ---------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+    #sidebar {
+        margin-left: calc(-1 * var(--sidebar-width));
+    }
+    #sidebar.show {
+        margin-left: 0;
+    }
+    .top-navbar {
+        padding: 0 1rem;
+    }
+    .global-search-form {
+        width: 220px;
+    }
+    .main-container {
+        padding: 1rem;
+    }
+}

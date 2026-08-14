@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}{{ criminal.name }} - Criminal Profile - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <a href="{{ url_for('criminals') }}" class="text-decoration-none text-muted small fw-bold mb-1 d-inline-block">
+            <i class="bi bi-arrow-left me-1"></i> Back to Criminal Records
+        </a>
+        <h1>Criminal Dossier: {{ criminal.name }}</h1>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Left Column: Suspect Profile Info Card -->
+    <div class="col-lg-4">
+        <div class="crms-card text-center p-4">
+            <div class="mx-auto mb-3 rounded-circle bg-dark text-white d-flex align-items-center justify-content-center shadow" style="width: 110px; height: 110px; font-size: 2.8rem; border: 4px solid #e2e8f0;">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            
+            <h4 class="fw-bold text-dark mb-0">{{ criminal.name }}</h4>
+            {% if criminal.alias %}
+                <p class="text-primary fw-semibold mb-2">"{{ criminal.alias }}"</p>
+            {% else %}
+                <p class="text-muted small mb-2">No Alias Listed</p>
+            {% endif %}
+
+            <div class="mb-3">
+                {% if criminal.status == 'Wanted' %}
+                    <span class="badge-status badge-critical fs-6"><i class="bi bi-exclamation-octagon-fill"></i> Wanted Criminal</span>
+                {% elif criminal.status == 'In Custody' %}
+                    <span class="badge-status badge-active fs-6"><i class="bi bi-lock-fill"></i> In Police Custody</span>
+                {% elif criminal.status == 'Convicted' %}
+                    <span class="badge-status badge-closed fs-6"><i class="bi bi-shield-x"></i> Convicted</span>
+                {% elif criminal.status == 'Bail' %}
+                    <span class="badge-status badge-pending fs-6"><i class="bi bi-unlock-fill"></i> On Bail</span>
+                {% else %}
+                    <span class="badge-status badge-solved fs-6">{{ criminal.status }}</span>
+                {% endif %}
+            </div>
+
+            <hr>
+
+            <div class="text-start">
+                <div class="mb-2">
+                    <span class="text-muted small d-block">CRIMINAL ID</span>
+                    <span class="fw-bold font-monospace">#CRIM-{{ "%04d"|format(criminal.criminal_id) }}</span>
+                </div>
+                <div class="mb-2">
+                    <span class="text-muted small d-block">GENDER / DOB</span>
+                    <span class="fw-semibold">{{ criminal.gender }} • {{ criminal.date_of_birth|default('Unknown') }}</span>
+                </div>
+                <div class="mb-2">
+                    <span class="text-muted small d-block">PHONE / CONTACT</span>
+                    <span class="fw-semibold">{{ criminal.phone|default('Not Recorded') }}</span>
+                </div>
+                <div class="mb-2">
+                    <span class="text-muted small d-block">KNOWN ADDRESS</span>
+                    <span class="fw-semibold text-muted small">{{ criminal.address|default('No fixed address') }}</span>
+                </div>
+                <div class="mb-2">
+                    <span class="text-muted small d-block">PHYSICAL IDENTIFICATION MARKS</span>
+                    <span class="small bg-light p-2 rounded d-block border">{{ criminal.identification_details|default('No physical marks listed.') }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Associated Cases & Arrest History -->
+    <div class="col-lg-8">
+        <!-- Associated Cases Table -->
+        <div class="crms-card mb-4">
+            <div class="crms-card-header">
+                <h5><i class="bi bi-folder-symlink-fill me-2 text-primary"></i> Linked Crime Cases ({{ linked_cases|length }})</h5>
+            </div>
+            <div class="crms-card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Case Number</th>
+                                <th>Crime Type</th>
+                                <th>Involvement</th>
+                                <th>Case Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for case in linked_cases %}
+                            <tr>
+                                <td class="fw-bold"><a href="{{ url_for('case_details', case_id=case.case_id) }}" class="text-primary text-decoration-none">{{ case.case_number }}</a></td>
+                                <td>{{ case.crime_type }}</td>
+                                <td><span class="badge bg-secondary">{{ case.involvement_type }}</span></td>
+                                <td>
+                                    {% if case.case_status == 'Active' %}
+                                        <span class="badge-status badge-active">Active</span>
+                                    {% elif case.case_status == 'Solved' %}
+                                        <span class="badge-status badge-solved">Solved</span>
+                                    {% else %}
+                                        <span class="badge-status badge-pending">{{ case.case_status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('case_details', case_id=case.case_id) }}" class="btn btn-sm btn-light border">
+                                        <i class="bi bi-folder2-open"></i> Open Case
+                                    </a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center py-3 text-muted">No crime cases linked to this criminal profile yet.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arrest History Table -->
+        <div class="crms-card">
+            <div class="crms-card-header">
+                <h5><i class="bi bi-handcuffs me-2 text-danger"></i> Arrest History Log</h5>
+            </div>
+            <div class="crms-card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Arrest Date</th>
+                                <th>Case Reference</th>
+                                <th>Arrest Location</th>
+                                <th>Arresting Officer</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for arrest in arrest_history %}
+                            <tr>
+                                <td>{{ arrest.arrest_date }}</td>
+                                <td class="fw-bold">{{ arrest.case_number }}</td>
+                                <td>{{ arrest.arrest_location }}</td>
+                                <td>{{ arrest.officer_name|default('Unassigned') }}</td>
+                                <td><span class="badge bg-warning text-dark">{{ arrest.arrest_status }}</span></td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center py-3 text-muted">No arrest logs recorded for this individual.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

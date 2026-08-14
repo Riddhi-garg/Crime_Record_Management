@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Court Proceedings & Verdicts - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Court Proceedings & Judicial Verdicts</h1>
+        <p>Judicial hearing schedules, judge assignments, verdicts, and sentences.</p>
+    </div>
+</div>
+
+<div class="crms-card">
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Court ID</th>
+                        <th>Case Number</th>
+                        <th>Court Name</th>
+                        <th>Hearing Date</th>
+                        <th>Presiding Judge</th>
+                        <th>Verdict</th>
+                        <th>Sentence / Order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cr in court_records %}
+                    <tr>
+                        <td class="fw-bold text-muted">#CRT-{{ cr.court_id }}</td>
+                        <td class="fw-bold">
+                            <a href="{{ url_for('case_details', case_id=cr.case_id) }}" class="text-primary text-decoration-none">{{ cr.case_number }}</a>
+                        </td>
+                        <td class="fw-semibold">{{ cr.court_name }}</td>
+                        <td>{{ cr.hearing_date }}</td>
+                        <td>{{ cr.judge_name }}</td>
+                        <td>
+                            {% if cr.verdict == 'Guilty' %}
+                                <span class="badge bg-danger"><i class="bi bi-gavel me-1"></i> Guilty</span>
+                            {% elif cr.verdict == 'Pending' %}
+                                <span class="badge bg-warning text-dark"><i class="bi bi-hourglass me-1"></i> Hearing Pending</span>
+                            {% else %}
+                                <span class="badge bg-success">{{ cr.verdict }}</span>
+                            {% endif %}
+                        </td>
+                        <td style="max-width: 250px;" class="small text-muted">
+                            {{ cr.sentence|default('No sentence details recorded.') }}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">No court proceeding records logged.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

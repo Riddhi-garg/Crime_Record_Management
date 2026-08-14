@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Evidence Locker - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Evidence Locker & Chain of Custody</h1>
+        <p>Master log of physical, digital, forensic evidence collected for criminal cases.</p>
+    </div>
+</div>
+
+<div class="crms-card">
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Ev. ID</th>
+                        <th>Case Number</th>
+                        <th>Evidence Type</th>
+                        <th>Description</th>
+                        <th>Collected Date</th>
+                        <th>Collected By</th>
+                        <th>Storage Location</th>
+                        <th>Custody Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ev in evidence %}
+                    <tr>
+                        <td class="fw-bold text-muted">#EV-{{ ev.evidence_id }}</td>
+                        <td class="fw-bold">
+                            <a href="{{ url_for('case_details', case_id=ev.case_id) }}" class="text-primary text-decoration-none">{{ ev.case_number }}</a>
+                        </td>
+                        <td><span class="badge bg-info text-dark font-monospace">{{ ev.evidence_type }}</span></td>
+                        <td style="max-width: 250px;">
+                            <span class="text-truncate d-inline-block w-100 small" title="{{ ev.description }}">
+                                {{ ev.description }}
+                            </span>
+                        </td>
+                        <td>{{ ev.collected_date }}</td>
+                        <td>{{ ev.collector_name|default('Unassigned') }}</td>
+                        <td><span class="font-monospace small bg-light p-1 rounded border">{{ ev.storage_location }}</span></td>
+                        <td>
+                            {% if ev.status == 'Presented in Court' %}
+                                <span class="badge bg-success"><i class="bi bi-bank me-1"></i> Court Evidence</span>
+                            {% elif ev.status == 'In Lab' %}
+                                <span class="badge bg-warning text-dark"><i class="bi bi-gear-wide-connected me-1"></i> In Lab</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ ev.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-muted">No evidence items registered in locker.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

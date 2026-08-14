@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}DBMS Analytics & Reports - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>DBMS Analytical Reports & SQL Aggregations</h1>
+        <p>Statistical summaries generated via relational SQL queries, joins, and aggregate functions.</p>
+    </div>
+    <button onclick="window.print()" class="btn btn-outline-dark fw-bold shadow-sm d-print-none">
+        <i class="bi bi-printer-fill me-1"></i> Print / Save PDF Report
+    </button>
+</div>
+
+<!-- Report 1: Crimes Breakdown by Category -->
+<div class="crms-card mb-4">
+    <div class="crms-card-header bg-navy text-white" style="background-color: #0f172a;">
+        <h5 class="text-white mb-0"><i class="bi bi-pie-chart-fill me-2 text-warning"></i> Report 1: Crime Category Statistics & Resolution Rates</h5>
+        <span class="badge bg-primary">DQL SQL Aggregation</span>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Crime Category</th>
+                        <th>Total Incidents (COUNT)</th>
+                        <th>Critical Severity Incidents</th>
+                        <th>Solved Cases</th>
+                        <th>Resolution Rate (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in category_reports %}
+                    <tr>
+                        <td class="fw-bold text-dark">{{ r.crime_type }}</td>
+                        <td><span class="badge bg-secondary fs-6">{{ r.total_incidents }}</span></td>
+                        <td><span class="badge bg-danger">{{ r.critical_count }}</span></td>
+                        <td><span class="badge bg-success">{{ r.solved_count }}</span></td>
+                        <td>
+                            {% set rate = (r.solved_count / r.total_incidents * 100)|round(1) if r.total_incidents > 0 else 0 %}
+                            <div class="progress" style="height: 18px;">
+                                <div class="progress-bar bg-success font-monospace" style="width: {{ rate }}%;">{{ rate }}%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center py-3 text-muted">No crime data available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="crms-card-body bg-light border-top d-print-none">
+        <span class="text-muted text-xs font-monospace fw-bold d-block mb-1">SQL DEMONSTRATION QUERY USED:</span>
+        <code class="small text-primary">SELECT crime_type, COUNT(*) AS total_incidents, SUM(CASE WHEN severity = 'Critical' THEN 1 ELSE 0 END) AS critical_count, SUM(CASE WHEN status = 'Solved' THEN 1 ELSE 0 END) AS solved_count FROM crimes GROUP BY crime_type HAVING COUNT(*) >= 1 ORDER BY total_incidents DESC;</code>
+    </div>
+</div>
+
+<!-- Report 2: Officer Workload Metrics -->
+<div class="crms-card mb-4">
+    <div class="crms-card-header bg-navy text-white" style="background-color: #0f172a;">
+        <h5 class="text-white mb-0"><i class="bi bi-person-workspace me-2 text-primary"></i> Report 2: Officer Workload & Case Allocation</h5>
+        <span class="badge bg-info text-dark">Database View: officer_workload_view</span>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Officer Name</th>
+                        <th>Badge & Rank</th>
+                        <th>Assigned Police Station</th>
+                        <th>Active/Pending Cases</th>
+                        <th>Solved Cases</th>
+                        <th>Total Assigned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ow in officer_workload %}
+                    <tr>
+                        <td class="fw-bold">{{ ow.officer_name }}</td>
+                        <td>
+                            <span class="font-monospace text-primary fw-bold me-1">{{ ow.badge_number }}</span>
+                            <span class="badge bg-light text-dark border">{{ ow.rank }}</span>
+                        </td>
+                        <td>{{ ow.station_name }}</td>
+                        <td><span class="badge bg-warning text-dark">{{ ow.active_cases|default(0) }} Active</span></td>
+                        <td><span class="badge bg-success">{{ ow.solved_cases|default(0) }} Solved</span></td>
+                        <td class="fw-bold fs-6">{{ ow.total_assigned_cases|default(0) }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-3 text-muted">No officer workload metrics.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Report 3: Police Station Performance Statistics -->
+<div class="crms-card mb-4">
+    <div class="crms-card-header bg-navy text-white" style="background-color: #0f172a;">
+        <h5 class="text-white mb-0"><i class="bi bi-building me-2 text-success"></i> Report 3: Precinct Activity & FIR Registrations</h5>
+        <span class="badge bg-secondary">INNER JOIN + GROUP BY</span>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Station Name</th>
+                        <th>City / Region</th>
+                        <th>Total Officers Assigned</th>
+                        <th>Total FIRs Filed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for st in station_stats %}
+                    <tr>
+                        <td class="fw-bold text-dark">{{ st.station_name }}</td>
+                        <td>{{ st.city }}</td>
+                        <td><span class="badge bg-primary fs-6">{{ st.total_officers }}</span></td>
+                        <td><span class="badge bg-dark text-warning font-monospace fs-6">{{ st.total_firs }} FIRs</span></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-3 text-muted">No station statistics available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
