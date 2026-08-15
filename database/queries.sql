@@ -1,14 +1,10 @@
--- ============================================================================
 -- Crime Record Management System (CRMS)
 -- DBMS Concept Demonstration SQL Queries Script
--- ============================================================================
 
 USE crime_record_management;
 
--- ----------------------------------------------------------------------------
 -- 1. DQL & AGGREGATE FUNCTIONS WITH GROUP BY & HAVING
 -- Query: Total crimes by category with total count > 1
--- ----------------------------------------------------------------------------
 SELECT 
     crime_type, 
     COUNT(*) AS total_incidents,
@@ -19,10 +15,8 @@ GROUP BY crime_type
 HAVING COUNT(*) >= 1
 ORDER BY total_incidents DESC;
 
--- ----------------------------------------------------------------------------
 -- 2. INNER JOIN & LEFT JOIN DEMONSTRATION
 -- Query: Retrieve complete Case details with FIR, Crime, Officer, & Station info
--- ----------------------------------------------------------------------------
 SELECT 
     c.case_number,
     f.fir_number,
@@ -41,10 +35,8 @@ INNER JOIN victims v ON f.victim_id = v.victim_id
 LEFT JOIN police_officers po ON c.investigating_officer_id = po.officer_id
 ORDER BY c.start_date DESC;
 
--- ----------------------------------------------------------------------------
 -- 3. MANY-TO-MANY (M:N) JOIN WITH COMPOSITE KEYS
 -- Query: Criminal involvement in cases with case status and involvement type
--- ----------------------------------------------------------------------------
 SELECT 
     cr.name AS criminal_name,
     cr.alias,
@@ -59,10 +51,8 @@ INNER JOIN FIR f ON c.fir_id = f.fir_id
 INNER JOIN crimes cm ON f.crime_id = cm.crime_id
 ORDER BY cr.name;
 
--- ----------------------------------------------------------------------------
 -- 4. SUBQUERY DEMONSTRATION
 -- Query: Find officers who are investigating more than the average number of active cases
--- ----------------------------------------------------------------------------
 SELECT 
     po.officer_id,
     po.name,
@@ -82,19 +72,15 @@ HAVING COUNT(c.case_id) >= (
     ) AS officer_counts
 );
 
--- ----------------------------------------------------------------------------
 -- 5. DATABASE VIEW USAGE
 -- Query: Select summary data from case_summary_view
--- ----------------------------------------------------------------------------
 SELECT * FROM case_summary_view WHERE case_status = 'Active';
 
 -- Query: Select workload metrics from officer_workload_view
 SELECT * FROM officer_workload_view ORDER BY active_cases DESC;
 
--- ----------------------------------------------------------------------------
 -- 6. TRANSACTION DEMONSTRATION
 -- Scenario: Transactional Registration of FIR + Automatic Case Generation + Officer Assignment
--- ----------------------------------------------------------------------------
 START TRANSACTION;
 
 -- Step 1: Insert Crime

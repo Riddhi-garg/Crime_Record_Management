@@ -1,7 +1,5 @@
--- ============================================================================
 -- Crime Record Management System (CRMS)
 -- Realistic Sample Data Population Script
--- ============================================================================
 
 USE crime_record_management;
 
@@ -23,11 +21,9 @@ TRUNCATE TABLE police_stations;
 TRUNCATE TABLE users;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- ----------------------------------------------------------------------------
 -- 1. Insert Users (Hashed password for 'admin123' and 'officer123')
 -- Admin: admin / admin123
 -- Officer: officer1 / officer123, officer2 / officer123, officer3 / officer123
--- ----------------------------------------------------------------------------
 INSERT INTO users (user_id, username, password, role, full_name, email) VALUES
 (1, 'admin', 'scrypt:32768:8:1$k52Q40wR0XN4Z8Jk$8b18d2dca79d7249911e3fffaee3e5eb56e87bc7e95147575dbbfa139886361a3e9c606df48dfadfc8cbba914ea98f12a20ca4d9a175f73ed2ce5bcac932fcd4', 'Admin', 'Director General Arthur Vance', 'admin@crms.gov.in'),
 (2, 'officer1', 'scrypt:32768:8:1$X8gT50wR0XN4Z8Jk$1c1071ee52c222ff492cb91a6d48dc776495dbbf770857efef290b21a8dcf86f87427b3b3cb55c11d4e13292495d4edca297cb73b318d1a1b55ff8e89920194c', 'Officer', 'Inspector Rajesh Kumar', 'rajesh.kumar@crms.gov.in'),
@@ -35,9 +31,8 @@ INSERT INTO users (user_id, username, password, role, full_name, email) VALUES
 (4, 'officer3', 'scrypt:32768:8:1$X8gT50wR0XN4Z8Jk$1c1071ee52c222ff492cb91a6d48dc776495dbbf770857efef290b21a8dcf86f87427b3b3cb55c11d4e13292495d4edca297cb73b318d1a1b55ff8e89920194c', 'Officer', 'ACP Vikramaditya Singh', 'vikram.singh@crms.gov.in'),
 (5, 'officer4', 'scrypt:32768:8:1$X8gT50wR0XN4Z8Jk$1c1071ee52c222ff492cb91a6d48dc776495dbbf770857efef290b21a8dcf86f87427b3b3cb55c11d4e13292495d4edca297cb73b318d1a1b55ff8e89920194c', 'Officer', 'Inspector Ananya Roy', 'ananya.roy@crms.gov.in');
 
--- ----------------------------------------------------------------------------
 -- 2. Insert Police Stations (10 Stations)
--- ----------------------------------------------------------------------------
+
 INSERT INTO police_stations (station_id, station_name, address, city, state, contact_number) VALUES
 (1, 'Central Police Station', '100 MG Road, Civil Lines', 'Metro City', 'State North', '011-23456701'),
 (2, 'Cyber Crime HQ', 'Tech Park Avenue, Sector 5', 'Metro City', 'State North', '011-23456702'),
@@ -50,9 +45,7 @@ INSERT INTO police_stations (station_id, station_name, address, city, state, con
 (9, 'Airport Security Precinct', 'Terminal 2 Rd, IGI Zone', 'Metro City', 'State North', '011-23456709'),
 (10, 'East End Police Station', '23 Riverfront Road', 'Metro City', 'State North', '011-23456710');
 
--- ----------------------------------------------------------------------------
 -- 3. Insert Police Officers (20 Officers)
--- ----------------------------------------------------------------------------
 INSERT INTO police_officers (officer_id, name, rank, badge_number, phone, email, station_id, user_id) VALUES
 (1, 'Rajesh Kumar', 'Inspector', 'BP-1001', '9876543210', 'rajesh.kumar@crms.gov.in', 1, 2),
 (2, 'Priya Sharma', 'Sub-Inspector', 'BP-1002', '9876543211', 'priya.sharma@crms.gov.in', 2, 3),
@@ -75,9 +68,7 @@ INSERT INTO police_officers (officer_id, name, rank, badge_number, phone, email,
 (19, 'Zoya Akhtar', 'Sub-Inspector', 'BP-1019', '9876543228', 'zoya.a@crms.gov.in', 9, NULL),
 (20, 'Randeep Hooda', 'Senior Inspector', 'BP-1020', '9876543229', 'randeep.h@crms.gov.in', 10, NULL);
 
--- ----------------------------------------------------------------------------
 -- 4. Insert Criminals (20 Criminals)
--- ----------------------------------------------------------------------------
 INSERT INTO criminals (criminal_id, name, alias, date_of_birth, gender, address, phone, identification_details, status) VALUES
 (1, 'Vijay Salgaonkar', 'The Ghost', '1982-05-14', 'Male', '44 Lake View Road, Suburban Hills', '9123456701', 'Scar on right cheek, tattoo on left forearm', 'In Custody'),
 (2, 'Gabbar Singh', 'Daku Gabbar', '1975-08-20', 'Male', 'Ramgarh Ravines, Hideout 4', '9123456702', 'Missing left pinky finger, height 6ft 1in', 'Wanted'),
@@ -100,9 +91,8 @@ INSERT INTO criminals (criminal_id, name, alias, date_of_birth, gender, address,
 (19, 'Langda Tyagi', 'Langda', '1978-01-22', 'Male', 'Meerut Outskirts', '9123456719', 'Severe right leg limp', 'Bail'),
 (20, 'Hathoda Tyagi', 'Hathoda', '1981-12-05', 'Male', 'Outer Ring Road, Village 8', '9123456720', 'Calloused hands, 6ft 3in', 'Convicted');
 
--- ----------------------------------------------------------------------------
+
 -- 5. Insert Victims (15 Victims)
--- ----------------------------------------------------------------------------
 INSERT INTO victims (victim_id, name, age, gender, address, phone) VALUES
 (1, 'Ramesh Sen', 45, 'Male', '12 Mall Road, Metro City', '9811122201'),
 (2, 'Sunita Deshmukh', 34, 'Female', '56 Lotus Apartments, South Ext', '9811122202'),
@@ -120,9 +110,8 @@ INSERT INTO victims (victim_id, name, age, gender, address, phone) VALUES
 (14, 'Tanvi Shah', 24, 'Female', '45 College Road, Metro City', '9811122214'),
 (15, 'Manohar Parrikar', 62, 'Male', '11 Coastal Highway, Port Town', '9811122215');
 
--- ----------------------------------------------------------------------------
+
 -- 6. Insert Witnesses (10 Witnesses)
--- ----------------------------------------------------------------------------
 INSERT INTO witnesses (witness_id, name, age, gender, address, phone, statement) VALUES
 (1, 'Gopal Swamy', 50, 'Male', '14 Mall Road Market', '9700011101', 'Saw two men in black jackets fleeing on a blue motorcycle around 11:30 PM.'),
 (2, 'Shanti Devi', 62, 'Female', '58 South Ext Alley', '9700011102', 'Heard a loud argument followed by glass breaking near the jewelry shop.'),
@@ -135,9 +124,7 @@ INSERT INTO witnesses (witness_id, name, age, gender, address, phone, statement)
 (9, 'Mahesh Bhatt', 64, 'Male', 'Studio Complex, Westside', '9700011109', 'Reported seeing suspicious activity around the executive office lockbox.'),
 (10, 'Lata Mangeshkar', 71, 'Female', 'Quiet Haven Colony', '9700011110', 'Heard car tires screeching immediately after the alarm sounded.');
 
--- ----------------------------------------------------------------------------
 -- 7. Insert Crimes (20 Crimes)
--- ----------------------------------------------------------------------------
 INSERT INTO crimes (crime_id, crime_type, description, crime_date, crime_time, location, city, state, severity, status) VALUES
 (1, 'Armed Robbery', 'Armed robbery at National Jewelry Vault. 500 grams gold stolen.', '2026-01-10', '22:45:00', '12 Mall Road', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
 (2, 'Cyber Fraud', 'Phishing scam targeting online banking credentials of senior citizens.', '2026-01-15', '14:20:00', 'Tech Park, Sector 5', 'Metro City', 'State North', 'Major', 'Solved'),
@@ -160,9 +147,7 @@ INSERT INTO crimes (crime_id, crime_type, description, crime_date, crime_time, l
 (19, 'Vandalism', 'Defacing public infrastructure and destruction of city property.', '2026-04-05', '01:30:00', 'Metro Rail Station 4', 'Metro City', 'State North', 'Minor', 'Closed'),
 (20, 'Wire Fraud', 'Unauthorized transfer of corporate funds to offshore accounts.', '2026-04-10', '10:00:00', 'Financial Center West', 'Metro City', 'State North', 'Major', 'Under Investigation');
 
--- ----------------------------------------------------------------------------
 -- 8. Insert FIR (First Information Reports - 15 Records)
--- ----------------------------------------------------------------------------
 INSERT INTO FIR (fir_id, fir_number, crime_id, victim_id, station_id, filing_date, description, status) VALUES
 (1, 'FIR-2026-0001', 1, 1, 1, '2026-01-11', 'Complainant reported armed robbery at gold vault by 2 masked suspects.', 'Approved'),
 (2, 'FIR-2026-0002', 2, 2, 2, '2026-01-16', 'Victim lost Rs 4,50,000 via phishing link impersonating bank tax rebate.', 'Approved'),
@@ -180,9 +165,7 @@ INSERT INTO FIR (fir_id, fir_number, crime_id, victim_id, station_id, filing_dat
 (14, 'FIR-2026-0014', 14, 12, 8, '2026-03-15', 'Arson attack destroying cotton storage facility.', 'Under Investigation'),
 (15, 'FIR-2026-0015', 15, 15, 10, '2026-03-19', 'Fake currency circulating in local wholesale market stalls.', 'Approved');
 
--- ----------------------------------------------------------------------------
 -- 9. Insert Cases (15 Cases created from FIRs)
--- ----------------------------------------------------------------------------
 INSERT INTO cases (case_id, case_number, fir_id, investigating_officer_id, case_status, priority, start_date, closing_date, remarks) VALUES
 (1, 'CASE-2026-0101', 1, 1, 'Active', 'High', '2026-01-11', NULL, 'Prime suspect identified as Gabbar Singh based on CCTV forensics.'),
 (2, 'CASE-2026-0102', 2, 2, 'Solved', 'Medium', '2026-01-16', '2026-02-10', 'Phishing server seized, culprit Robert Dsouza arrested and confessed.'),
@@ -200,9 +183,7 @@ INSERT INTO cases (case_id, case_number, fir_id, investigating_officer_id, case_
 (14, 'CASE-2026-0114', 14, 12, 'Active', 'Medium', '2026-03-15', NULL, 'Chemical accelerant analysis report pending from FSL lab.'),
 (15, 'CASE-2026-0115', 15, 14, 'In Court', 'Medium', '2026-03-19', NULL, 'Printing press seized, trial underway at Sessions Court.');
 
--- ----------------------------------------------------------------------------
 -- 10. Insert Criminal Cases (Many-to-Many M:N Junction)
--- ----------------------------------------------------------------------------
 INSERT INTO criminal_cases (criminal_id, case_id, involvement_type) VALUES
 (2, 1, 'Mastermind'),
 (6, 1, 'Accomplice'),
@@ -224,9 +205,7 @@ INSERT INTO criminal_cases (criminal_id, case_id, involvement_type) VALUES
 (19, 15, 'Co-Accused'),
 (20, 15, 'Mastermind');
 
--- ----------------------------------------------------------------------------
 -- 11. Insert Evidence (20 Evidence Records)
--- ----------------------------------------------------------------------------
 INSERT INTO evidence (evidence_id, case_id, evidence_type, description, collected_date, collected_by, storage_location, status) VALUES
 (1, 1, 'Digital', 'CCTV security camera footage showing suspects entering vault at 22:42.', '2026-01-11', 1, 'Locker A-101, Central HQ', 'Presented in Court'),
 (2, 1, 'Weapon', 'Desi katta .315 caliber pistol dropped near vault rear exit.', '2026-01-11', 1, 'Armory Vault B', 'In Lab'),
@@ -249,9 +228,7 @@ INSERT INTO evidence (evidence_id, case_id, evidence_type, description, collecte
 (19, 15, 'Document', '500 sheets of high-grade watermark currency paper.', '2026-03-20', 14, 'Locker D-01', 'Presented in Court'),
 (20, 15, 'Physical', 'Offset lithographic printing plates used for forging 500-rupee notes.', '2026-03-20', 14, 'Evidence Vault 4', 'In Storage');
 
--- ----------------------------------------------------------------------------
 -- 12. Insert Arrests (10 Arrest Records)
--- ----------------------------------------------------------------------------
 INSERT INTO arrests (arrest_id, criminal_id, case_id, officer_id, arrest_date, arrest_location, arrest_status) VALUES
 (1, 1, 5, 7, '2026-02-04 04:30:00', 'Pier 4 Dockyard, Port Town', 'In Lockup'),
 (2, 2, 1, 1, '2026-01-14 18:00:00', 'Ramgarh Highway Toll Plaza', 'Remand'),
@@ -264,9 +241,7 @@ INSERT INTO arrests (arrest_id, criminal_id, case_id, officer_id, arrest_date, a
 (9, 15, 14, 12, '2026-03-17 03:00:00', 'Ghatkopar Bus Depot', 'Transferred to Prison'),
 (10, 18, 10, 4, '2026-03-01 13:00:00', 'Bypass Village Outskirts', 'In Lockup');
 
--- ----------------------------------------------------------------------------
 -- 13. Insert Court Records (10 Court Proceedings)
--- ----------------------------------------------------------------------------
 INSERT INTO court_records (court_id, case_id, court_name, hearing_date, judge_name, verdict, sentence, case_status) VALUES
 (1, 2, 'Metro Cyber Fast Track Court', '2026-02-08', 'Hon. Judge H. R. Khanna', 'Guilty', '3 Years Rigorous Imprisonment & 1 Lakh Fine', 'Closed'),
 (2, 4, 'Sessions Court District 1', '2026-02-25', 'Hon. Judge S. M. Sikri', 'Guilty', '7 Years Imprisonment under Extortion Act', 'Closed'),
@@ -279,9 +254,7 @@ INSERT INTO court_records (court_id, case_id, court_name, hearing_date, judge_na
 (9, 5, 'Maritime Admiralty Court', '2026-04-18', 'Hon. Judge J. S. Verma', 'Pending', 'Customs Seizure Appeal', 'In Court'),
 (10, 11, 'Financial Offenses Tribunal', '2026-04-25', 'Hon. Judge S. P. Bharucha', 'Pending', 'Charge Framing Scheduled', 'In Court');
 
--- ----------------------------------------------------------------------------
 -- 14. Insert Case Updates (Investigation Timelines)
--- ----------------------------------------------------------------------------
 INSERT INTO case_updates (update_id, case_id, officer_id, update_text, update_date) VALUES
 (1, 1, 1, 'FIR filed and crime scene cordoned off by patrol units.', '2026-01-11 10:00:00'),
 (2, 1, 1, 'CCTV footage obtained from vault lobby showing armed suspects.', '2026-01-11 15:30:00'),

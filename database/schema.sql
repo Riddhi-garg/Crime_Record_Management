@@ -1,17 +1,12 @@
--- ============================================================================
 -- Crime Record Management System (CRMS)
 -- Database Schema Script (MySQL Compatible)
 -- Database Name: crime_record_management
 -- Demonstrating 3NF Normalization, PKs, FKs, Indexes, Constraints, and Views
--- ============================================================================
-
 CREATE DATABASE IF NOT EXISTS crime_record_management;
 USE crime_record_management;
 
--- ----------------------------------------------------------------------------
 -- Table 1: users
 -- Holds system authentication and RBAC roles (Admin, Officer)
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,10 +18,9 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
+
 -- Table 2: police_stations
 -- Administrative police precincts
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS police_stations;
 CREATE TABLE police_stations (
     station_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,10 +32,8 @@ CREATE TABLE police_stations (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 3: police_officers
 -- Police officers assigned to police stations
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS police_officers;
 CREATE TABLE police_officers (
     officer_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,10 +51,8 @@ CREATE TABLE police_officers (
         REFERENCES users(user_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 4: criminals
 -- Master record of identified criminals / suspects
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS criminals;
 CREATE TABLE criminals (
     criminal_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -77,10 +67,8 @@ CREATE TABLE criminals (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 5: victims
 -- Complainants and victims of reported crimes
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS victims;
 CREATE TABLE victims (
     victim_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -92,10 +80,8 @@ CREATE TABLE victims (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 6: witnesses
 -- Witnesses to reported crimes or cases
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS witnesses;
 CREATE TABLE witnesses (
     witness_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -108,10 +94,8 @@ CREATE TABLE witnesses (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 7: crimes
 -- Crime incident occurrences catalog
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS crimes;
 CREATE TABLE crimes (
     crime_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -127,10 +111,8 @@ CREATE TABLE crimes (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 8: FIR (First Information Report)
 -- Official FIR reports filed at stations
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS FIR;
 CREATE TABLE FIR (
     fir_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -150,10 +132,8 @@ CREATE TABLE FIR (
         REFERENCES police_stations(station_id) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 9: cases
 -- Active legal cases generated from FIRs
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS cases;
 CREATE TABLE cases (
     case_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -172,11 +152,9 @@ CREATE TABLE cases (
         REFERENCES police_officers(officer_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 10: criminal_cases (Junction table - Many to Many)
 -- Link between criminals and cases with involvement type
 -- Composite Primary Key (criminal_id, case_id)
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS criminal_cases;
 CREATE TABLE criminal_cases (
     criminal_id INT NOT NULL,
@@ -189,10 +167,8 @@ CREATE TABLE criminal_cases (
         REFERENCES cases(case_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 11: evidence
 -- Evidence items gathered for a case
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS evidence;
 CREATE TABLE evidence (
     evidence_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -210,10 +186,8 @@ CREATE TABLE evidence (
         REFERENCES police_officers(officer_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 12: arrests
 -- Arrest records of criminals related to specific cases
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS arrests;
 CREATE TABLE arrests (
     arrest_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -232,10 +206,8 @@ CREATE TABLE arrests (
         REFERENCES police_officers(officer_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 13: court_records
 -- Legal proceedings and court verdicts
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS court_records;
 CREATE TABLE court_records (
     court_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -251,10 +223,8 @@ CREATE TABLE court_records (
         REFERENCES cases(case_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------------
 -- Table 14: case_updates
 -- Investigation timeline updates logged by officers
--- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS case_updates;
 CREATE TABLE case_updates (
     update_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -268,9 +238,7 @@ CREATE TABLE case_updates (
         REFERENCES police_officers(officer_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ============================================================================
 -- INDEXES FOR OPTIMIZED SEARCH & JOIN PERFORMANCE
--- ============================================================================
 CREATE INDEX idx_crimes_type ON crimes(crime_type);
 CREATE INDEX idx_crimes_status ON crimes(status);
 CREATE INDEX idx_crimes_location ON crimes(city, state);
@@ -279,10 +247,7 @@ CREATE INDEX idx_cases_status ON cases(case_status);
 CREATE INDEX idx_fir_number ON FIR(fir_number);
 CREATE INDEX idx_officer_badge ON police_officers(badge_number);
 
--- ============================================================================
 -- DATABASE VIEWS
--- ============================================================================
-
 -- View 1: case_summary_view
 -- Joins cases, FIR, crimes, officers, and stations for simplified queries
 CREATE OR REPLACE VIEW case_summary_view AS
