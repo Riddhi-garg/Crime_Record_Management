@@ -21,4 +21,4 @@ class Config:
     DB_NAME = os.environ.get('DB_NAME', 'crime_record_management')
     
     # Flask settings
-    DEBUG = os.environ.get('FLASK_DEBUG', '1') == '1'
+    DEBUG = False
