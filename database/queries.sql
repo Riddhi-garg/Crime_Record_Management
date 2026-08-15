@@ -85,7 +85,7 @@ START TRANSACTION;
 
 -- Step 1: Insert Crime
 INSERT INTO crimes (crime_type, description, crime_date, crime_time, location, city, state, severity, status)
-VALUES ('Grand Larceny', 'Theft of high value artwork from art gallery', '2026-04-12', '21:00:00', '15 Art Plaza', 'Metro City', 'State North', 'Major', 'Under Investigation');
+VALUES ('Grand Larceny', 'Theft of high value artwork from art gallery', '2026-04-12', '21:00:00', '15 Art Plaza', 'Delhi', 'Delhi', 'Major', 'Under Investigation');
 
 SET @new_crime_id = LAST_INSERT_ID();
 

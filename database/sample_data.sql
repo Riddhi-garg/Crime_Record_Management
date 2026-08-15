@@ -34,16 +34,16 @@ INSERT INTO users (user_id, username, password, role, full_name, email) VALUES
 -- 2. Insert Police Stations (10 Stations)
 
 INSERT INTO police_stations (station_id, station_name, address, city, state, contact_number) VALUES
-(1, 'Central Police Station', '100 MG Road, Civil Lines', 'Metro City', 'State North', '011-23456701'),
-(2, 'Cyber Crime HQ', 'Tech Park Avenue, Sector 5', 'Metro City', 'State North', '011-23456702'),
-(3, 'North District Station', '45 Grand Trunk Road', 'Metro City', 'State North', '011-23456703'),
-(4, 'South Avenue Precinct', '12 Ring Road, South Extension', 'Metro City', 'State North', '011-23456704'),
-(5, 'Harbor Maritime Station', 'Dockyard Complex, Pier 4', 'Port Town', 'State Coast', '022-87654301'),
-(6, 'Highland Police Post', '78 Ridge View, Hill Area', 'Pine Valley', 'State North', '011-23456706'),
-(7, 'Westside Precinct', '89 Park Street, West Suburbs', 'Metro City', 'State North', '011-23456707'),
-(8, 'Industrial Zone Station', 'Phase 3, Industrial Estate', 'Steel Town', 'State East', '033-98765401'),
-(9, 'Airport Security Precinct', 'Terminal 2 Rd, IGI Zone', 'Metro City', 'State North', '011-23456709'),
-(10, 'East End Police Station', '23 Riverfront Road', 'Metro City', 'State North', '011-23456710');
+(1, 'Central Police Station', '100 MG Road, Civil Lines', 'Delhi', 'Delhi', '011-23456701'),
+(2, 'Cyber Crime HQ', 'Tech Park Avenue, Sector 5', 'Delhi', 'Delhi', '011-23456702'),
+(3, 'North District Station', '45 Grand Trunk Road', 'Delhi', 'Delhi', '011-23456703'),
+(4, 'South Avenue Precinct', '12 Ring Road, South Extension', 'Delhi', 'Delhi', '011-23456704'),
+(5, 'Harbor Maritime Station', 'Dockyard Complex, Pier 4', 'Mumbai', 'Maharashtra', '022-87654301'),
+(6, 'Highland Police Post', '78 Ridge View, Hill Area', 'Shimla', 'Himachal Pradesh', '0177-2345706'),
+(7, 'Westside Precinct', '89 Park Street, West Suburbs', 'Delhi', 'Delhi', '011-23456707'),
+(8, 'Industrial Zone Station', 'Phase 3, Industrial Estate', 'Jamshedpur', 'Jharkhand', '0657-2398401'),
+(9, 'Airport Security Precinct', 'Terminal 2 Rd, IGI Zone', 'Delhi', 'Delhi', '011-23456709'),
+(10, 'East End Police Station', '23 Riverfront Road', 'Delhi', 'Delhi', '011-23456710');
 
 -- 3. Insert Police Officers (20 Officers)
 INSERT INTO police_officers (officer_id, name, rank, badge_number, phone, email, station_id, user_id) VALUES
@@ -126,26 +126,26 @@ INSERT INTO witnesses (witness_id, name, age, gender, address, phone, statement)
 
 -- 7. Insert Crimes (20 Crimes)
 INSERT INTO crimes (crime_id, crime_type, description, crime_date, crime_time, location, city, state, severity, status) VALUES
-(1, 'Armed Robbery', 'Armed robbery at National Jewelry Vault. 500 grams gold stolen.', '2026-01-10', '22:45:00', '12 Mall Road', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(2, 'Cyber Fraud', 'Phishing scam targeting online banking credentials of senior citizens.', '2026-01-15', '14:20:00', 'Tech Park, Sector 5', 'Metro City', 'State North', 'Major', 'Solved'),
-(3, 'Grand Theft Auto', 'Luxury SUV stolen from hotel valet parking.', '2026-01-20', '01:15:00', 'Grand Trunk Road', 'Metro City', 'State North', 'Major', 'Under Investigation'),
-(4, 'Extortion', 'Protection money demand from local business owners using threats.', '2026-01-25', '18:30:00', 'Industrial Estate Phase 3', 'Steel Town', 'State East', 'Critical', 'Solved'),
-(5, 'Contraband Smuggling', 'Illegal shipment of prohibited goods seized at harbor docks.', '2026-02-01', '03:10:00', 'Pier 4 Dockyard', 'Port Town', 'State Coast', 'Critical', 'Under Investigation'),
-(6, 'Burglary', 'Break-in at residential bungalow while owners were out of town.', '2026-02-05', '02:00:00', '44 Ridge View', 'Pine Valley', 'State North', 'Minor', 'Reported'),
-(7, 'Identity Theft', 'Creation of fraudulent passport and identity documents.', '2026-02-08', '11:00:00', 'Terminal 2 Rd', 'Metro City', 'State North', 'Major', 'Solved'),
-(8, 'Assault & Battery', 'Physical altercation outside night venue resulting in severe injury.', '2026-02-12', '23:50:00', '89 Park Street', 'Metro City', 'State North', 'Major', 'Solved'),
-(9, 'Homicide', 'Fatal shooting during gang confrontation in alleyway.', '2026-02-18', '21:15:00', 'Kola Bazar Alley 5', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(10, 'Kidnapping', 'Abduction of businessman for ransom demand.', '2026-02-22', '08:45:00', '101 Cyber Towers', 'Metro City', 'State North', 'Critical', 'Solved'),
-(11, 'Bank Heist', 'Sophisticated vault breach at Central Financial Branch.', '2026-03-01', '04:30:00', '90 Financial District', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(12, 'Drug Trafficking', 'Distribution network bust yielding 20kg synthetic substances.', '2026-03-05', '16:00:00', 'Dharavi Sector 3', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(13, 'Snatching & Mugging', 'Chain snatching on pedestrian walkway by motorbikers.', '2026-03-10', '19:10:00', '33 Rose Gardens', 'Metro City', 'State North', 'Minor', 'Solved'),
-(14, 'Arson', 'Intentional fire set at abandoned warehouse facility.', '2026-03-14', '23:00:00', 'Phase 3 Industrial Area', 'Steel Town', 'State East', 'Major', 'Reported'),
-(15, 'Counterfeiting', 'Printing and circulating fake high-denomination currency notes.', '2026-03-18', '12:30:00', '23 Riverfront Road', 'Metro City', 'State North', 'Major', 'Solved'),
-(16, 'Vehicle Hacking', 'Remote takeover of automated fleet vehicles via malware.', '2026-03-22', '15:45:00', 'Tech Park Avenue', 'Metro City', 'State North', 'Major', 'Under Investigation'),
-(17, 'Illegal Firearms', 'Cache of unlicensed weapons recovered during traffic checkpoint.', '2026-03-28', '20:40:00', '78 GT Road Checkpoint', 'Metro City', 'State North', 'Critical', 'Solved'),
-(18, 'Shoplifting Syndicate', 'Organized retail theft ring operating across shopping malls.', '2026-04-02', '17:15:00', 'Civil Lines Retail Hub', 'Metro City', 'State North', 'Minor', 'Solved'),
-(19, 'Vandalism', 'Defacing public infrastructure and destruction of city property.', '2026-04-05', '01:30:00', 'Metro Rail Station 4', 'Metro City', 'State North', 'Minor', 'Closed'),
-(20, 'Wire Fraud', 'Unauthorized transfer of corporate funds to offshore accounts.', '2026-04-10', '10:00:00', 'Financial Center West', 'Metro City', 'State North', 'Major', 'Under Investigation');
+(1, 'Armed Robbery', 'Armed robbery at National Jewelry Vault. 500 grams gold stolen.', '2026-01-10', '22:45:00', '12 Mall Road', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(2, 'Cyber Fraud', 'Phishing scam targeting online banking credentials of senior citizens.', '2026-01-15', '14:20:00', 'Tech Park, Sector 5', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(3, 'Grand Theft Auto', 'Luxury SUV stolen from hotel valet parking.', '2026-01-20', '01:15:00', 'Grand Trunk Road', 'Delhi', 'Delhi', 'Major', 'Under Investigation'),
+(4, 'Extortion', 'Protection money demand from local business owners using threats.', '2026-01-25', '18:30:00', 'Industrial Estate Phase 3', 'Jamshedpur', 'Jharkhand', 'Critical', 'Solved'),
+(5, 'Contraband Smuggling', 'Illegal shipment of prohibited goods seized at harbor docks.', '2026-02-01', '03:10:00', 'Pier 4 Dockyard', 'Mumbai', 'Maharashtra', 'Critical', 'Under Investigation'),
+(6, 'Burglary', 'Break-in at residential bungalow while owners were out of town.', '2026-02-05', '02:00:00', '44 Ridge View', 'Shimla', 'Himachal Pradesh', 'Minor', 'Reported'),
+(7, 'Identity Theft', 'Creation of fraudulent passport and identity documents.', '2026-02-08', '11:00:00', 'Terminal 2 Rd', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(8, 'Assault & Battery', 'Physical altercation outside night venue resulting in severe injury.', '2026-02-12', '23:50:00', '89 Park Street', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(9, 'Homicide', 'Fatal shooting during gang confrontation in alleyway.', '2026-02-18', '21:15:00', 'Kola Bazar Alley 5', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(10, 'Kidnapping', 'Abduction of businessman for ransom demand.', '2026-02-22', '08:45:00', '101 Cyber Towers', 'Delhi', 'Delhi', 'Critical', 'Solved'),
+(11, 'Bank Heist', 'Sophisticated vault breach at Central Financial Branch.', '2026-03-01', '04:30:00', '90 Financial District', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(12, 'Drug Trafficking', 'Distribution network bust yielding 20kg synthetic substances.', '2026-03-05', '16:00:00', 'Dharavi Sector 3', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(13, 'Snatching & Mugging', 'Chain snatching on pedestrian walkway by motorbikers.', '2026-03-10', '19:10:00', '33 Rose Gardens', 'Delhi', 'Delhi', 'Minor', 'Solved'),
+(14, 'Arson', 'Intentional fire set at abandoned warehouse facility.', '2026-03-14', '23:00:00', 'Phase 3 Industrial Area', 'Jamshedpur', 'Jharkhand', 'Major', 'Reported'),
+(15, 'Counterfeiting', 'Printing and circulating fake high-denomination currency notes.', '2026-03-18', '12:30:00', '23 Riverfront Road', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(16, 'Vehicle Hacking', 'Remote takeover of automated fleet vehicles via malware.', '2026-03-22', '15:45:00', 'Tech Park Avenue', 'Delhi', 'Delhi', 'Major', 'Under Investigation'),
+(17, 'Illegal Firearms', 'Cache of unlicensed weapons recovered during traffic checkpoint.', '2026-03-28', '20:40:00', '78 GT Road Checkpoint', 'Delhi', 'Delhi', 'Critical', 'Solved'),
+(18, 'Shoplifting Syndicate', 'Organized retail theft ring operating across shopping malls.', '2026-04-02', '17:15:00', 'Civil Lines Retail Hub', 'Delhi', 'Delhi', 'Minor', 'Solved'),
+(19, 'Vandalism', 'Defacing public infrastructure and destruction of city property.', '2026-04-05', '01:30:00', 'Metro Rail Station 4', 'Delhi', 'Delhi', 'Minor', 'Closed'),
+(20, 'Wire Fraud', 'Unauthorized transfer of corporate funds to offshore accounts.', '2026-04-10', '10:00:00', 'Financial Center West', 'Delhi', 'Delhi', 'Major', 'Under Investigation');
 
 -- 8. Insert FIR (First Information Reports - 15 Records)
 INSERT INTO FIR (fir_id, fir_number, crime_id, victim_id, station_id, filing_date, description, status) VALUES
