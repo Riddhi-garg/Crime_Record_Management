@@ -1,3 +1,9 @@
+# =============================================================================
+# CRIME RECORD MANAGEMENT SYSTEM (CRMS) - DBMS Project Database Layer
+# Student Name: Riddhi Garg
+# Module: Database Connection Helper (MySQL / SQLite Dual Driver)
+# =============================================================================
+
 import pymysql
 from pymysql.cursors import DictCursor
 import sqlite3

@@ -1,3 +1,8 @@
+# CRIME RECORD MANAGEMENT SYSTEM (CRMS)
+# DBMS College Project | Final Project Submission
+# Submitted By: Riddhi Garg
+# Backend Framework: Python Flask & MySQL / SQLite
+
 import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from config import Config
@@ -7,7 +12,7 @@ from utils.auth import login_required, admin_required, role_required
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Initialize Database Engine Mode (MySQL with SQLite fallback)
+# Initialize Database Connection
 database.init_db()
 
 # Custom Jinja filters
@@ -448,27 +453,9 @@ def register_fir():
     if not fir_number or not v_name or not v_phone or not crime_type or not location:
         flash("Required fields are missing.", "danger")
         return redirect(url_for('fir_list'))
-        
-    # Build transaction queries
-    # SQLite uses `?` and MySQL uses `%s`. The abstraction in `utils/database.py` handles replacement automatically.
-    # Note: we use {LAST_ID} placeholder logic defined in execute_transaction
-    tx_queries = [
-        # Query 1: Insert Victim
-        ("INSERT INTO victims (name, age, gender, address, phone) VALUES (%s, %s, %s, %s, %s)", 
-         (v_name, v_age, v_gender, v_address, v_phone)),
-        
-        # Query 2: Insert Crime
-        ("INSERT INTO crimes (crime_type, description, crime_date, location, city, state, severity, status) "
-         "VALUES (%s, %s, %s, %s, %s, 'State North', 'Major', 'Under Investigation')", 
-         (crime_type, description, crime_date, location, city)),
-         
-        # Query 3: Insert FIR (using LAST_ID of Crime and Victim). Since LAST_ID updates per insert, we calculate ids dynamically in app.py or database transaction.
-        # To avoid index complexity, we can do it inside database query helper by returning IDs, or via transactional raw execution.
-        # Let's perform it with custom transaction block inside app.py for precise IDs.
-    ]
-    
+    # Execute multi-table transaction to register FIR and create investigation case
     try:
-        # Step 1: Insert Complainant/Victim
+        # Step 1: Insert Complainant/Victim into victims table
         v_id = database.execute_query(
             "INSERT INTO victims (name, age, gender, address, phone) VALUES (%s, %s, %s, %s, %s)",
             (v_name, v_age, v_gender, v_address, v_phone),

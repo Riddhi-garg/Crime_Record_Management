@@ -1,3 +1,9 @@
+# =============================================================================
+# CRIME RECORD MANAGEMENT SYSTEM (CRMS) - DBMS College Project
+# Submitted By: Riddhi Garg
+# Course: Database Management Systems (DBMS)
+# =============================================================================
+
 import os
 from dotenv import load_dotenv
 

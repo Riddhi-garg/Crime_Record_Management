@@ -1,7 +1,16 @@
 # Crime Record Management System (CRMS)
-### A Full-Stack College DBMS Project
+### Database Management System (DBMS) Mini Project
 
-This repository contains a complete, production-grade **Crime Record Management System (CRMS)** designed as a university database systems application. The system supports full CRUD operations, role-based access control, parameterized SQL execution, transactions, and deep analytical reports.
+```
+=============================================================================
+Project Title: Crime Record Management System (CRMS)
+Course: Database Management Systems (DBMS)
+Submitted By: Riddhi Garg
+Tech Stack: Python Flask, MySQL / SQLite, HTML5, CSS3, JavaScript, Bootstrap
+=============================================================================
+```
+
+This repository contains the complete **Crime Record Management System (CRMS)** developed as a college DBMS project. The system supports full CRUD operations, role-based access control, parameterized SQL execution, multi-table transactions, and database analytics.
 
 ---
 

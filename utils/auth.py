@@ -1,3 +1,9 @@
+# =============================================================================
+# CRIME RECORD MANAGEMENT SYSTEM (CRMS) - Security & Role-Based Auth
+# Student Name: Riddhi Garg
+# Module: Password Hashing & Access Control Decorators
+# =============================================================================
+
 from functools import wraps
 from flask import session, redirect, url_for, flash, render_template, request
 from werkzeug.security import generate_password_hash, check_password_hash
