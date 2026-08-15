@@ -678,9 +678,10 @@ def assign_case_officer(case_id):
         )
         # Log case update
         off = database.execute_query("SELECT name FROM police_officers WHERE officer_id=%s", (officer_id,), fetchone=True)
+        off_name = off['name'] if off else f"Officer ID #{officer_id}"
         database.execute_query(
             "INSERT INTO case_updates (case_id, officer_id, update_text) VALUES (%s, %s, %s)",
-            (case_id, off.get('officer_id'), f"New investigating officer assigned: {off['name']}."),
+            (case_id, officer_id, f"New investigating officer assigned: {off_name}."),
             commit=True
         )
         flash("Officer assigned to case file.", "success")
@@ -709,9 +710,10 @@ def link_case_criminal(case_id):
         )
         # Log timeline case update
         crim = database.execute_query("SELECT name FROM criminals WHERE criminal_id=%s", (criminal_id,), fetchone=True)
+        crim_name = crim['name'] if crim else f"Suspect ID #{criminal_id}"
         database.execute_query(
             "INSERT INTO case_updates (case_id, update_text) VALUES (%s, %s)",
-            (case_id, f"Suspect identified and linked: {crim['name']} (Role: {inv_type})."),
+            (case_id, f"Suspect identified and linked: {crim_name} (Role: {inv_type})."),
             commit=True
         )
         flash("Suspect successfully linked to the case file.", "success")
@@ -845,9 +847,10 @@ def add_arrest_route():
         
         # Log case update
         crim = database.execute_query("SELECT name FROM criminals WHERE criminal_id=%s", (criminal_id,), fetchone=True)
+        crim_name = crim['name'] if crim else f"Suspect ID #{criminal_id}"
         database.execute_query(
             "INSERT INTO case_updates (case_id, officer_id, update_text) VALUES (%s, %s, %s)",
-            (case_id, officer, f"Suspect {crim['name']} arrested at {loc}. Current Custody: {status}."),
+            (case_id, officer, f"Suspect {crim_name} arrested at {loc}. Current Custody: {status}."),
             commit=True
         )
         
