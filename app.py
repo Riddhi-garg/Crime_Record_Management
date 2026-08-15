@@ -417,10 +417,13 @@ def fir_list():
         officers=officers
     )
 
-@app.route('/fir/register', methods=['POST'])
+@app.route('/fir/register', methods=['GET', 'POST'])
 @login_required
 @role_required(['Admin', 'Officer'])
 def register_fir():
+    if request.method == 'GET':
+        return redirect(url_for('fir_list'))
+        
     # Transaction variables
     fir_number = request.form.get('fir_number').strip()
     station_id = request.form.get('station_id')
