@@ -1,6 +1,6 @@
 # CRIME RECORD MANAGEMENT SYSTEM (CRMS)
 # DBMS College Project | Final Project Submission
-# Submitted By: Riddhi Garg
+# Submitted By: Riddhi and Kanan Gera
 # Backend Framework: Python Flask & MySQL / SQLite
 
 import datetime
