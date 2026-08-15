@@ -34,16 +34,16 @@ INSERT INTO users (user_id, username, password, role, full_name, email) VALUES
 -- 2. Insert Police Stations (10 Stations)
 
 INSERT INTO police_stations (station_id, station_name, address, city, state, contact_number) VALUES
-(1, 'Central Police Station', '100 MG Road, Civil Lines', 'Metro City', 'State North', '011-23456701'),
-(2, 'Cyber Crime HQ', 'Tech Park Avenue, Sector 5', 'Metro City', 'State North', '011-23456702'),
-(3, 'North District Station', '45 Grand Trunk Road', 'Metro City', 'State North', '011-23456703'),
-(4, 'South Avenue Precinct', '12 Ring Road, South Extension', 'Metro City', 'State North', '011-23456704'),
-(5, 'Harbor Maritime Station', 'Dockyard Complex, Pier 4', 'Port Town', 'State Coast', '022-87654301'),
-(6, 'Highland Police Post', '78 Ridge View, Hill Area', 'Pine Valley', 'State North', '011-23456706'),
-(7, 'Westside Precinct', '89 Park Street, West Suburbs', 'Metro City', 'State North', '011-23456707'),
-(8, 'Industrial Zone Station', 'Phase 3, Industrial Estate', 'Steel Town', 'State East', '033-98765401'),
-(9, 'Airport Security Precinct', 'Terminal 2 Rd, IGI Zone', 'Metro City', 'State North', '011-23456709'),
-(10, 'East End Police Station', '23 Riverfront Road', 'Metro City', 'State North', '011-23456710');
+(1, 'Central Police Station', '100 MG Road, Civil Lines', 'Delhi', 'Delhi', '011-23456701'),
+(2, 'Cyber Crime HQ', 'Tech Park Avenue, Sector 5', 'Delhi', 'Delhi', '011-23456702'),
+(3, 'North District Station', '45 Grand Trunk Road', 'Delhi', 'Delhi', '011-23456703'),
+(4, 'South Avenue Precinct', '12 Ring Road, South Extension', 'Delhi', 'Delhi', '011-23456704'),
+(5, 'Harbor Maritime Station', 'Dockyard Complex, Pier 4', 'Mumbai', 'Maharashtra', '022-87654301'),
+(6, 'Highland Police Post', 'The Mall, Near The Ridge', 'Shimla', 'Himachal Pradesh', '0177-2345706'),
+(7, 'Westside Precinct', 'Rajouri Garden, West Delhi', 'Delhi', 'Delhi', '011-23456707'),
+(8, 'Industrial Zone Station', 'Phase 3, Industrial Estate', 'Jamshedpur', 'Jharkhand', '0657-2398401'),
+(9, 'Airport Security Precinct', 'Terminal 2 Rd, IGI Zone', 'Delhi', 'Delhi', '011-23456709'),
+(10, 'East End Police Station', '23 ITO, Near Yamuna Riverfront', 'Delhi', 'Delhi', '011-23456710');
 
 -- 3. Insert Police Officers (20 Officers)
 INSERT INTO police_officers (officer_id, name, rank, badge_number, phone, email, station_id, user_id) VALUES
@@ -70,45 +70,45 @@ INSERT INTO police_officers (officer_id, name, rank, badge_number, phone, email,
 
 -- 4. Insert Criminals (20 Criminals)
 INSERT INTO criminals (criminal_id, name, alias, date_of_birth, gender, address, phone, identification_details, status) VALUES
-(1, 'Vijay Salgaonkar', 'The Ghost', '1982-05-14', 'Male', '44 Lake View Road, Suburban Hills', '9123456701', 'Scar on right cheek, tattoo on left forearm', 'In Custody'),
+(1, 'Vijay Salgaonkar', 'The Ghost', '1982-05-14', 'Male', '44 Aarey Colony, Suburban Hills', '9123456701', 'Scar on right cheek, tattoo on left forearm', 'In Custody'),
 (2, 'Gabbar Singh', 'Daku Gabbar', '1975-08-20', 'Male', 'Ramgarh Ravines, Hideout 4', '9123456702', 'Missing left pinky finger, height 6ft 1in', 'Wanted'),
 (3, 'Mogambo Rex', 'General M', '1968-11-03', 'Male', 'Subterranean Bunker B-12', '9123456703', 'Bald, prosthetic eye', 'Convicted'),
 (4, 'Shakaal K', 'The Shark', '1979-02-17', 'Male', 'Island Estate, Offshore Dock', '9123456704', 'Burn mark on right shoulder', 'Wanted'),
-(5, 'Teja Kumar', 'Mark Teja', '1984-07-22', 'Male', '12 Cross Street, Central Ward', '9123456705', 'Cross tattoo on neck', 'Bail'),
+(5, 'Teja Kumar', 'Mark Teja', '1984-07-22', 'Male', '12 Karol Bagh Cross Street', '9123456705', 'Cross tattoo on neck', 'Bail'),
 (6, 'Crime Master Gogo', 'Gogo', '1988-12-10', 'Male', '78 Gogo Villa, Old City', '9123456706', 'Red cape wearer, mustache', 'In Custody'),
 (7, 'Kancha Cheena', 'Cheena', '1973-04-05', 'Male', 'Mandwa Island', '9123456707', 'Tall, completely hairless head', 'Convicted'),
-(8, 'Babu Rao Ganpatrao', 'Babu Bhaiya', '1970-09-18', 'Male', 'Star Garage, Fishermens Colony', '9123456708', 'Thick round spectacles', 'Acquitted'),
-(9, 'Bulli Bhai', 'Bulli', '1992-01-30', 'Male', 'Flat 402, Green Heights', '9123456709', 'Pierced left ear', 'Wanted'),
-(10, 'Robert Dsouza', 'Robbie', '1985-06-15', 'Male', '99 Seaview Apartments', '9123456710', 'Snake tattoo on hand', 'In Custody'),
+(8, 'Babu Rao Ganpatrao', 'Babu Bhaiya', '1970-09-18', 'Male', 'Star Garage, Colaba Fishermens Colony', '9123456708', 'Thick round spectacles', 'Acquitted'),
+(9, 'Bulli Bhai', 'Bulli', '1992-01-30', 'Male', 'Flat 402, Vasant Kunj Heights', '9123456709', 'Pierced left ear', 'Wanted'),
+(10, 'Robert Dsouza', 'Robbie', '1985-06-15', 'Male', '99 Marine Drive Seaview Apartments', '9123456710', 'Snake tattoo on hand', 'In Custody'),
 (11, 'Bhiku Mhatre', 'King of Mumbai', '1980-03-25', 'Male', 'Dharavi Slum Cluster 3', '9123456711', 'Deep cut mark above left eyebrow', 'Bail'),
 (12, 'Kallu Mama', 'Mama', '1977-10-12', 'Male', 'Kola Bazar Alley 5', '9123456712', 'Limp in left leg', 'Wanted'),
-(13, 'Don Carlos', 'The Don', '1983-05-09', 'Male', 'Penthouse 18, Royal Towers', '9123456713', 'Tailored suit wearer, ring on thumb', 'Wanted'),
+(13, 'Don Carlos', 'The Don', '1983-05-09', 'Male', 'Penthouse 18, Worli Royal Towers', '9123456713', 'Tailored suit wearer, ring on thumb', 'Wanted'),
 (14, 'Charlie Mascarenhas', 'Charlie', '1990-11-28', 'Male', '34 Bandra West', '9123456714', 'Blonde highlights', 'In Custody'),
 (15, 'Lallan Singh', 'Lallan', '1986-04-19', 'Male', 'Ghatkopar East Chawl', '9123456715', 'Tattoo of eagle on chest', 'Convicted'),
 (16, 'Sardar Khan', 'Sardar', '1965-07-11', 'Male', 'Wasseypur Sector 2', '9123456716', 'Shaved head, long beard', 'In Custody'),
 (17, 'Faizal Khan', 'Faizal', '1991-09-02', 'Male', 'Wasseypur Sector 1', '9123456717', 'Deep scar across stomach', 'Wanted'),
-(18, 'Perpendicular Singh', 'Perpendicular', '1996-08-14', 'Male', 'Bypass Road Hutments', '9123456718', 'Razor blade mark on forearm', 'In Custody'),
+(18, 'Perpendicular Singh', 'Perpendicular', '1996-08-14', 'Male', 'GT Karnal Bypass Hutments', '9123456718', 'Razor blade mark on forearm', 'In Custody'),
 (19, 'Langda Tyagi', 'Langda', '1978-01-22', 'Male', 'Meerut Outskirts', '9123456719', 'Severe right leg limp', 'Bail'),
 (20, 'Hathoda Tyagi', 'Hathoda', '1981-12-05', 'Male', 'Outer Ring Road, Village 8', '9123456720', 'Calloused hands, 6ft 3in', 'Convicted');
 
 
 -- 5. Insert Victims (15 Victims)
 INSERT INTO victims (victim_id, name, age, gender, address, phone) VALUES
-(1, 'Ramesh Sen', 45, 'Male', '12 Mall Road, Metro City', '9811122201'),
-(2, 'Sunita Deshmukh', 34, 'Female', '56 Lotus Apartments, South Ext', '9811122202'),
-(3, 'Anil Kapoor', 52, 'Male', '78 Juhu Vista, Metro City', '9811122203'),
-(4, 'Kavita Menon', 29, 'Female', '101 Cyber Towers, Tech Zone', '9811122204'),
-(5, 'Suresh Oberoi', 60, 'Male', '44 Heritage Bungalow, Civil Lines', '9811122205'),
-(6, 'Pooja Bhatt', 26, 'Female', '33 Rose Gardens, West End', '9811122206'),
-(7, 'Vikram Seth', 38, 'Male', '89 Park View Lane', '9811122207'),
-(8, 'Meenakshi Sundaram', 41, 'Female', '12 Temple Street, Port Town', '9811122208'),
+(1, 'Ramesh Sen', 45, 'Male', '12 Mall Road, Delhi', '9811122201'),
+(2, 'Sunita Deshmukh', 34, 'Female', '56 Lotus Apartments, South Extension', '9811122202'),
+(3, 'Anil Kapoor', 52, 'Male', '78 Juhu Vista, Delhi', '9811122203'),
+(4, 'Kavita Menon', 29, 'Female', '101 Nehru Place IT Tower', '9811122204'),
+(5, 'Suresh Oberoi', 60, 'Male', '44 Heritage Haveli, Civil Lines', '9811122205'),
+(6, 'Pooja Bhatt', 26, 'Female', '33 Lajpat Nagar Market', '9811122206'),
+(7, 'Vikram Seth', 38, 'Male', '89 Vasant Vihar Lane', '9811122207'),
+(8, 'Meenakshi Sundaram', 41, 'Female', '12 Siddhivinayak Marg, Mumbai', '9811122208'),
 (9, 'Rahul Sharma', 31, 'Male', '67 Green Glen Layout', '9811122209'),
-(10, 'Shalini Mishra', 28, 'Female', '14 Sunrise Residency', '9811122210'),
-(11, 'Harish Rawat', 50, 'Male', '88 Hill View Road, Pine Valley', '9811122211'),
-(12, 'Geeta Dutt', 36, 'Female', '23 Station Road, Industrial Zone', '9811122212'),
-(13, 'Rakesh Jhunjhunwala', 58, 'Male', '90 Financial District', '9811122213'),
-(14, 'Tanvi Shah', 24, 'Female', '45 College Road, Metro City', '9811122214'),
-(15, 'Manohar Parrikar', 62, 'Male', '11 Coastal Highway, Port Town', '9811122215');
+(10, 'Shalini Mishra', 28, 'Female', '14 Sunrise Residency, Rohini', '9811122210'),
+(11, 'Harish Rawat', 50, 'Male', '88 Hill View Road, Shimla', '9811122211'),
+(12, 'Geeta Dutt', 36, 'Female', '23 Station Road, Adityapur', '9811122212'),
+(13, 'Rakesh Jhunjhunwala', 58, 'Male', '90 Connaught Place', '9811122213'),
+(14, 'Tanvi Shah', 24, 'Female', '45 College Road, Delhi', '9811122214'),
+(15, 'Manohar Parrikar', 62, 'Male', '11 Marine Drive, Mumbai', '9811122215');
 
 
 -- 6. Insert Witnesses (10 Witnesses)
@@ -118,34 +118,34 @@ INSERT INTO witnesses (witness_id, name, age, gender, address, phone, statement)
 (3, 'David Miller', 35, 'Male', 'Tech Park Cafe, Sector 5', '9700011103', 'Noticed suspicious cyber activity and server access from an unauthorized IP.'),
 (4, 'Suraj Bhan', 42, 'Male', 'Grand Trunk Dhaba', '9700011104', 'Observed a red sedan parked with headlights off near the bank vault rear door.'),
 (5, 'Fatima Sheikh', 29, 'Female', 'Pier 4 Warehouse', '9700011105', 'Saw contraband containers being unloaded into unmarked vans past midnight.'),
-(6, 'Rohan Mehra', 23, 'Male', 'University Campus Hostel', '9700011106', 'Witnessed suspect snatching handbag and running towards the metro station.'),
+(6, 'Rohan Mehra', 23, 'Male', 'Delhi University North Campus Hostel', '9700011106', 'Witnessed suspect snatching handbag and running towards the metro station.'),
 (7, 'Baldev Singh', 58, 'Male', 'Highway Fuel Station', '9700011107', 'Refueled the suspect vehicle, remembered the partial license plate number 4092.'),
 (8, 'Anita Desai', 47, 'Female', 'Green Valley Residency', '9700011108', 'Saw person matching suspect description entering the building elevator at 3 AM.'),
-(9, 'Mahesh Bhatt', 64, 'Male', 'Studio Complex, Westside', '9700011109', 'Reported seeing suspicious activity around the executive office lockbox.'),
+(9, 'Mahesh Bhatt', 64, 'Male', 'Film City Studio Complex, Mumbai', '9700011109', 'Reported seeing suspicious activity around the executive office lockbox.'),
 (10, 'Lata Mangeshkar', 71, 'Female', 'Quiet Haven Colony', '9700011110', 'Heard car tires screeching immediately after the alarm sounded.');
 
 -- 7. Insert Crimes (20 Crimes)
 INSERT INTO crimes (crime_id, crime_type, description, crime_date, crime_time, location, city, state, severity, status) VALUES
-(1, 'Armed Robbery', 'Armed robbery at National Jewelry Vault. 500 grams gold stolen.', '2026-01-10', '22:45:00', '12 Mall Road', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(2, 'Cyber Fraud', 'Phishing scam targeting online banking credentials of senior citizens.', '2026-01-15', '14:20:00', 'Tech Park, Sector 5', 'Metro City', 'State North', 'Major', 'Solved'),
-(3, 'Grand Theft Auto', 'Luxury SUV stolen from hotel valet parking.', '2026-01-20', '01:15:00', 'Grand Trunk Road', 'Metro City', 'State North', 'Major', 'Under Investigation'),
-(4, 'Extortion', 'Protection money demand from local business owners using threats.', '2026-01-25', '18:30:00', 'Industrial Estate Phase 3', 'Steel Town', 'State East', 'Critical', 'Solved'),
-(5, 'Contraband Smuggling', 'Illegal shipment of prohibited goods seized at harbor docks.', '2026-02-01', '03:10:00', 'Pier 4 Dockyard', 'Port Town', 'State Coast', 'Critical', 'Under Investigation'),
-(6, 'Burglary', 'Break-in at residential bungalow while owners were out of town.', '2026-02-05', '02:00:00', '44 Ridge View', 'Pine Valley', 'State North', 'Minor', 'Reported'),
-(7, 'Identity Theft', 'Creation of fraudulent passport and identity documents.', '2026-02-08', '11:00:00', 'Terminal 2 Rd', 'Metro City', 'State North', 'Major', 'Solved'),
-(8, 'Assault & Battery', 'Physical altercation outside night venue resulting in severe injury.', '2026-02-12', '23:50:00', '89 Park Street', 'Metro City', 'State North', 'Major', 'Solved'),
-(9, 'Homicide', 'Fatal shooting during gang confrontation in alleyway.', '2026-02-18', '21:15:00', 'Kola Bazar Alley 5', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(10, 'Kidnapping', 'Abduction of businessman for ransom demand.', '2026-02-22', '08:45:00', '101 Cyber Towers', 'Metro City', 'State North', 'Critical', 'Solved'),
-(11, 'Bank Heist', 'Sophisticated vault breach at Central Financial Branch.', '2026-03-01', '04:30:00', '90 Financial District', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(12, 'Drug Trafficking', 'Distribution network bust yielding 20kg synthetic substances.', '2026-03-05', '16:00:00', 'Dharavi Sector 3', 'Metro City', 'State North', 'Critical', 'Under Investigation'),
-(13, 'Snatching & Mugging', 'Chain snatching on pedestrian walkway by motorbikers.', '2026-03-10', '19:10:00', '33 Rose Gardens', 'Metro City', 'State North', 'Minor', 'Solved'),
-(14, 'Arson', 'Intentional fire set at abandoned warehouse facility.', '2026-03-14', '23:00:00', 'Phase 3 Industrial Area', 'Steel Town', 'State East', 'Major', 'Reported'),
-(15, 'Counterfeiting', 'Printing and circulating fake high-denomination currency notes.', '2026-03-18', '12:30:00', '23 Riverfront Road', 'Metro City', 'State North', 'Major', 'Solved'),
-(16, 'Vehicle Hacking', 'Remote takeover of automated fleet vehicles via malware.', '2026-03-22', '15:45:00', 'Tech Park Avenue', 'Metro City', 'State North', 'Major', 'Under Investigation'),
-(17, 'Illegal Firearms', 'Cache of unlicensed weapons recovered during traffic checkpoint.', '2026-03-28', '20:40:00', '78 GT Road Checkpoint', 'Metro City', 'State North', 'Critical', 'Solved'),
-(18, 'Shoplifting Syndicate', 'Organized retail theft ring operating across shopping malls.', '2026-04-02', '17:15:00', 'Civil Lines Retail Hub', 'Metro City', 'State North', 'Minor', 'Solved'),
-(19, 'Vandalism', 'Defacing public infrastructure and destruction of city property.', '2026-04-05', '01:30:00', 'Metro Rail Station 4', 'Metro City', 'State North', 'Minor', 'Closed'),
-(20, 'Wire Fraud', 'Unauthorized transfer of corporate funds to offshore accounts.', '2026-04-10', '10:00:00', 'Financial Center West', 'Metro City', 'State North', 'Major', 'Under Investigation');
+(1, 'Armed Robbery', 'Armed robbery at National Jewelry Vault. 500 grams gold stolen.', '2026-01-10', '22:45:00', '12 Mall Road', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(2, 'Cyber Fraud', 'Phishing scam targeting online banking credentials of senior citizens.', '2026-01-15', '14:20:00', 'Tech Park, Sector 5', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(3, 'Grand Theft Auto', 'Luxury SUV stolen from hotel valet parking.', '2026-01-20', '01:15:00', 'Grand Trunk Road', 'Delhi', 'Delhi', 'Major', 'Under Investigation'),
+(4, 'Extortion', 'Protection money demand from local business owners using threats.', '2026-01-25', '18:30:00', 'Industrial Estate Phase 3', 'Jamshedpur', 'Jharkhand', 'Critical', 'Solved'),
+(5, 'Contraband Smuggling', 'Illegal shipment of prohibited goods seized at harbor docks.', '2026-02-01', '03:10:00', 'Pier 4 Dockyard', 'Mumbai', 'Maharashtra', 'Critical', 'Under Investigation'),
+(6, 'Burglary', 'Break-in at residential bungalow while owners were out of town.', '2026-02-05', '02:00:00', '44 Ridge View', 'Shimla', 'Himachal Pradesh', 'Minor', 'Reported'),
+(7, 'Identity Theft', 'Creation of fraudulent passport and identity documents.', '2026-02-08', '11:00:00', 'Terminal 2 Rd', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(8, 'Assault & Battery', 'Physical altercation outside night venue resulting in severe injury.', '2026-02-12', '23:50:00', '89 Rajouri Garden', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(9, 'Homicide', 'Fatal shooting during gang confrontation in alleyway.', '2026-02-18', '21:15:00', 'Kola Bazar Alley 5', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(10, 'Kidnapping', 'Abduction of businessman for ransom demand.', '2026-02-22', '08:45:00', '101 Nehru Place IT Tower', 'Delhi', 'Delhi', 'Critical', 'Solved'),
+(11, 'Bank Heist', 'Sophisticated vault breach at Central Financial Branch.', '2026-03-01', '04:30:00', '90 Connaught Place', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(12, 'Drug Trafficking', 'Distribution network bust yielding 20kg synthetic substances.', '2026-03-05', '16:00:00', 'Sangam Vihar Sector 3', 'Delhi', 'Delhi', 'Critical', 'Under Investigation'),
+(13, 'Snatching & Mugging', 'Chain snatching on pedestrian walkway by motorbikers.', '2026-03-10', '19:10:00', '33 Lajpat Nagar Market', 'Delhi', 'Delhi', 'Minor', 'Solved'),
+(14, 'Arson', 'Intentional fire set at abandoned warehouse facility.', '2026-03-14', '23:00:00', 'Phase 3 Industrial Area', 'Jamshedpur', 'Jharkhand', 'Major', 'Reported'),
+(15, 'Counterfeiting', 'Printing and circulating fake high-denomination currency notes.', '2026-03-18', '12:30:00', '23 ITO, Near Yamuna Riverfront', 'Delhi', 'Delhi', 'Major', 'Solved'),
+(16, 'Vehicle Hacking', 'Remote takeover of automated fleet vehicles via malware.', '2026-03-22', '15:45:00', 'Tech Park Avenue', 'Delhi', 'Delhi', 'Major', 'Under Investigation'),
+(17, 'Illegal Firearms', 'Cache of unlicensed weapons recovered during traffic checkpoint.', '2026-03-28', '20:40:00', '78 GT Road Checkpoint', 'Delhi', 'Delhi', 'Critical', 'Solved'),
+(18, 'Shoplifting Syndicate', 'Organized retail theft ring operating across shopping malls.', '2026-04-02', '17:15:00', 'Civil Lines Retail Hub', 'Delhi', 'Delhi', 'Minor', 'Solved'),
+(19, 'Vandalism', 'Defacing public infrastructure and destruction of city property.', '2026-04-05', '01:30:00', 'Rajiv Chowk Metro Station', 'Delhi', 'Delhi', 'Minor', 'Closed'),
+(20, 'Wire Fraud', 'Unauthorized transfer of corporate funds to offshore accounts.', '2026-04-10', '10:00:00', 'Nehru Place IT Hub', 'Delhi', 'Delhi', 'Major', 'Under Investigation');
 
 -- 8. Insert FIR (First Information Reports - 15 Records)
 INSERT INTO FIR (fir_id, fir_number, crime_id, victim_id, station_id, filing_date, description, status) VALUES
@@ -230,7 +230,7 @@ INSERT INTO evidence (evidence_id, case_id, evidence_type, description, collecte
 
 -- 12. Insert Arrests (10 Arrest Records)
 INSERT INTO arrests (arrest_id, criminal_id, case_id, officer_id, arrest_date, arrest_location, arrest_status) VALUES
-(1, 1, 5, 7, '2026-02-04 04:30:00', 'Pier 4 Dockyard, Port Town', 'In Lockup'),
+(1, 1, 5, 7, '2026-02-04 04:30:00', 'Pier 4 Dockyard, Mumbai', 'In Lockup'),
 (2, 2, 1, 1, '2026-01-14 18:00:00', 'Ramgarh Highway Toll Plaza', 'Remand'),
 (3, 3, 4, 12, '2026-01-29 11:15:00', 'Bunker B-12 Perimeter', 'Transferred to Prison'),
 (4, 5, 7, 13, '2026-02-11 16:45:00', 'Terminal 2 Departure Lounge', 'Bailed'),
