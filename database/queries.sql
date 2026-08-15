@@ -85,13 +85,13 @@ START TRANSACTION;
 
 -- Step 1: Insert Crime
 INSERT INTO crimes (crime_type, description, crime_date, crime_time, location, city, state, severity, status)
-VALUES ('Grand Larceny', 'Theft of high value artwork from art gallery', '2026-04-12', '21:00:00', '15 Art Plaza', 'Delhi', 'Delhi', 'Major', 'Under Investigation');
+VALUES ('Grand Larceny', 'Theft of high value artwork from art gallery', '2026-04-12', '21:00:00', '15 Lodhi Art District', 'Delhi', 'Delhi', 'Major', 'Under Investigation');
 
 SET @new_crime_id = LAST_INSERT_ID();
 
 -- Step 2: Insert Victim
 INSERT INTO victims (name, age, gender, address, phone)
-VALUES ('Julian Vance', 51, 'Male', '15 Art Plaza', '9811122299');
+VALUES ('Julian Vance', 51, 'Male', '15 Lodhi Art District', '9811122299');
 
 SET @new_victim_id = LAST_INSERT_ID();
 
