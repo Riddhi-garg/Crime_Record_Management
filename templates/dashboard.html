@@ -6,15 +6,15 @@
 <!-- Page Header -->
 <div class="page-header">
     <div>
-        <h1 class="fw-bold text-dark"><i class="bi bi-speedometer2 text-primary me-2"></i> Crime Record Management Portal</h1>
+        <h1 class="fw-bold text-dark"><i class="bi bi-speedometer2 text-primary me-2" aria-hidden="true"></i> Crime Record Management Portal</h1>
         <p class="text-muted mb-0">Centralized crime intelligence, AI predictive analysis, biometric AFIS fingerprint matching, and citizen services.</p>
     </div>
     <div class="d-flex gap-2">
         <a href="{{ url_for('fir_list') }}" class="btn btn-primary shadow-sm fw-bold">
-            <i class="bi bi-file-earmark-plus-fill me-1"></i> Register FIR
+            <i class="bi bi-file-earmark-plus-fill me-1" aria-hidden="true"></i> Register FIR
         </a>
         <a href="{{ url_for('add_crime') }}" class="btn btn-dark shadow-sm fw-bold">
-            <i class="bi bi-plus-lg me-1"></i> Add Crime
+            <i class="bi bi-plus-lg me-1" aria-hidden="true"></i> Add Crime
         </a>
     </div>
 </div>
@@ -27,14 +27,14 @@
             <div class="card-body p-4 d-flex flex-column justify-content-between">
                 <div>
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-cpu-fill me-1"></i> AI POWERED</span>
-                        <i class="bi bi-graph-up-arrow fs-3 text-warning"></i>
+                        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-cpu-fill me-1" aria-hidden="true"></i> AI POWERED</span>
+                        <i class="bi bi-graph-up-arrow fs-3 text-warning" aria-hidden="true"></i>
                     </div>
                     <h5 class="fw-bold text-white mb-2">Predictive Crime Analysis</h5>
                     <p class="text-white-50 small mb-4">AI crime hotspot probability forecasting, time-slot risk score calculation, and precinct patrol optimization.</p>
                 </div>
                 <a href="{{ url_for('predictive_analysis') }}" class="btn btn-warning w-100 fw-bold shadow-sm">
-                    Launch Predictive AI Engine <i class="bi bi-arrow-right ms-1"></i>
+                    Launch Predictive AI Engine <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -46,14 +46,14 @@
             <div class="card-body p-4 d-flex flex-column justify-content-between">
                 <div>
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-info text-dark fw-bold px-2 py-1"><i class="bi bi-fingerprint me-1"></i> BIOMETRIC AFIS</span>
-                        <i class="bi bi-shield-lock-fill fs-3 text-info"></i>
+                        <span class="badge bg-info text-dark fw-bold px-2 py-1"><i class="bi bi-fingerprint me-1" aria-hidden="true"></i> BIOMETRIC AFIS</span>
+                        <i class="bi bi-shield-lock-fill fs-3 text-info" aria-hidden="true"></i>
                     </div>
                     <h5 class="fw-bold text-white mb-2">Fingerprint Recognition Engine</h5>
                     <p class="text-white-50 small mb-4">Automated fingerprint minutiae-ridge pattern matching against national criminal database records.</p>
                 </div>
                 <a href="{{ url_for('fingerprint_matching') }}" class="btn btn-info text-dark w-100 fw-bold shadow-sm">
-                    Open AFIS Scanner <i class="bi bi-arrow-right ms-1"></i>
+                    Open AFIS Scanner <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -65,14 +65,14 @@
             <div class="card-body p-4 d-flex flex-column justify-content-between">
                 <div>
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-danger text-white fw-bold px-2 py-1"><i class="bi bi-incognito me-1"></i> CITIZEN SERVICE</span>
-                        <i class="bi bi-shield-exclamation fs-3 text-danger"></i>
+                        <span class="badge bg-danger text-white fw-bold px-2 py-1"><i class="bi bi-incognito me-1" aria-hidden="true"></i> CITIZEN SERVICE</span>
+                        <i class="bi bi-shield-exclamation fs-3 text-danger" aria-hidden="true"></i>
                     </div>
                     <h5 class="fw-bold text-white mb-2">Anonymous Tip Portal</h5>
                     <p class="text-white-50 small mb-4">Secure public portal for citizens to submit confidential crime leads with tracking code lookup.</p>
                 </div>
                 <a href="{{ url_for('anonymous_tip') }}" class="btn btn-danger w-100 fw-bold shadow-sm">
-                    Submit / Track Anonymous Tip <i class="bi bi-arrow-right ms-1"></i>
+                    Submit / Track Anonymous Tip <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -84,13 +84,29 @@
     <div class="crms-card-header bg-light border-bottom p-0">
         <ul class="nav nav-tabs border-0" id="newsTendersTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active px-4 py-3 fw-bold text-uppercase" id="news-tab" data-bs-toggle="tab" data-bs-target="#news-content" type="button" role="tab" style="letter-spacing: 0.5px;">
-                    <i class="bi bi-newspaper me-2"></i> NEWS & EVENTS
+                <button class="nav-link active px-4 py-3 fw-bold text-uppercase"
+                        id="news-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#news-content"
+                        type="button"
+                        role="tab"
+                        aria-controls="news-content"
+                        aria-selected="true"
+                        style="letter-spacing: 0.5px;">
+                    <i class="bi bi-newspaper me-2" aria-hidden="true"></i> NEWS &amp; EVENTS
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link px-4 py-3 fw-bold text-uppercase" id="tenders-tab" data-bs-toggle="tab" data-bs-target="#tenders-content" type="button" role="tab" style="letter-spacing: 0.5px;">
-                    <i class="bi bi-file-earmark-code me-2"></i> TENDERS
+                <button class="nav-link px-4 py-3 fw-bold text-uppercase"
+                        id="tenders-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#tenders-content"
+                        type="button"
+                        role="tab"
+                        aria-controls="tenders-content"
+                        aria-selected="false"
+                        style="letter-spacing: 0.5px;">
+                    <i class="bi bi-file-earmark-code me-2" aria-hidden="true"></i> TENDERS
                 </button>
             </li>
         </ul>
@@ -98,14 +114,14 @@
     <div class="crms-card-body p-4">
         <div class="tab-content" id="newsTendersTabContent">
             <!-- News Tab -->
-            <div class="tab-pane fade show active" id="news-content" role="tabpanel">
+            <div class="tab-pane fade show active" id="news-content" role="tabpanel" aria-labelledby="news-tab">
                 <div class="list-group list-group-flush">
                     {% for n in news_list %}
                     <div class="list-group-item px-0 py-3 border-bottom d-flex justify-content-between align-items-center">
                         <div>
                             <div class="d-flex align-items-center gap-2 mb-1">
                                 <span class="badge bg-primary text-white" style="font-size: 0.75rem;">NEWS</span>
-                                <span class="text-muted small"><i class="bi bi-calendar3 me-1"></i> {{ n.date_posted }}</span>
+                                <span class="text-muted small"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i> {{ n.date_posted }}</span>
                             </div>
                             <h6 class="fw-bold text-dark mb-1">{{ n.title }}</h6>
                             <p class="text-muted small mb-0">{{ n.description }}</p>
@@ -117,19 +133,19 @@
                     {% endfor %}
                 </div>
                 <div class="text-end mt-3">
-                    <a href="{{ url_for('news') }}" class="text-decoration-none fw-bold text-primary small">View All <i class="bi bi-chevron-right ms-1"></i></a>
+                    <a href="{{ url_for('news') }}" class="text-decoration-none fw-bold text-primary small">View All <i class="bi bi-chevron-right ms-1" aria-hidden="true"></i></a>
                 </div>
             </div>
 
             <!-- Tenders Tab -->
-            <div class="tab-pane fade" id="tenders-content" role="tabpanel">
+            <div class="tab-pane fade" id="tenders-content" role="tabpanel" aria-labelledby="tenders-tab">
                 <div class="list-group list-group-flush">
                     {% for t in tenders_list %}
                     <div class="list-group-item px-0 py-3 border-bottom d-flex justify-content-between align-items-center">
                         <div>
                             <div class="d-flex align-items-center gap-2 mb-1">
                                 <span class="badge bg-secondary text-white" style="font-size: 0.75rem;">TENDER</span>
-                                <span class="text-muted small"><i class="bi bi-calendar3 me-1"></i> {{ t.date_posted }}</span>
+                                <span class="text-muted small"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i> {{ t.date_posted }}</span>
                             </div>
                             <h6 class="fw-bold text-dark mb-1">{{ t.title }}</h6>
                             <p class="text-muted small mb-0">{{ t.description }}</p>
@@ -141,7 +157,7 @@
                     {% endfor %}
                 </div>
                 <div class="text-end mt-3">
-                    <a href="{{ url_for('tenders') }}" class="text-decoration-none fw-bold text-secondary small">View All <i class="bi bi-chevron-right ms-1"></i></a>
+                    <a href="{{ url_for('tenders') }}" class="text-decoration-none fw-bold text-secondary small">View All <i class="bi bi-chevron-right ms-1" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
@@ -152,10 +168,10 @@
 <div class="crms-card mb-4 border shadow-sm rounded-3">
     <div class="crms-card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-images text-primary me-2"></i> Photo Gallery</h5>
-            <small class="text-muted">National Crime Records Bureau Conferences & Official Events</small>
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-images text-primary me-2" aria-hidden="true"></i> Photo Gallery</h5>
+            <span class="text-muted" style="font-size: 0.85rem;">National Crime Records Bureau Conferences &amp; Official Events</span>
         </div>
-        <a href="{{ url_for('gallery') }}" class="btn btn-sm btn-outline-primary fw-bold"><i class="bi bi-archive me-1"></i> Archives</a>
+        <a href="{{ url_for('gallery') }}" class="btn btn-sm btn-outline-primary fw-bold" aria-label="View gallery archives"><i class="bi bi-archive me-1" aria-hidden="true"></i> Archives</a>
     </div>
     <div class="crms-card-body p-4">
         <div class="row g-3">
@@ -163,14 +179,14 @@
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm overflow-hidden rounded-3 hover-shadow transition">
                     <div class="position-relative">
-                        <img src="{{ album.cover_image }}" class="card-img-top object-fit-cover" alt="{{ album.title }}" style="height: 180px;">
-                        <span class="position-absolute bottom-0 end-0 bg-dark text-white px-2 py-1 m-2 rounded text-xs fw-bold opacity-90">
-                            <i class="bi bi-image me-1"></i> {{ album.photo_count }}
+                        <img src="{{ album.cover_image }}" class="card-img-top object-fit-cover" alt="{{ album.title }}" style="height: 180px;" loading="lazy">
+                        <span class="position-absolute bottom-0 end-0 bg-dark text-white px-2 py-1 m-2 rounded fw-bold opacity-90" style="font-size: 0.75rem;">
+                            <i class="bi bi-image me-1" aria-hidden="true"></i> {{ album.photo_count }}
                         </span>
                     </div>
                     <div class="card-body bg-dark text-white p-3 text-center" style="background-color: #1e293b !important;">
                         <h6 class="card-title fw-bold text-white mb-1 small">{{ album.title }}</h6>
-                        <small class="text-white-50 text-xs"><i class="bi bi-calendar-event me-1"></i> {{ album.event_date }}</small>
+                        <span class="text-white-50" style="font-size: 0.75rem;"><i class="bi bi-calendar-event me-1" aria-hidden="true"></i> {{ album.event_date }}</span>
                     </div>
                 </div>
             </div>
@@ -185,12 +201,12 @@
     <div class="col-lg-8">
         <div class="crms-card h-100 mb-0">
             <div class="crms-card-header">
-                <h5><i class="bi bi-graph-up me-2 text-primary"></i> Crime Incident Trends by Month</h5>
+                <h5><i class="bi bi-graph-up me-2 text-primary" aria-hidden="true"></i> Crime Incident Trends by Month</h5>
                 <span class="badge bg-light text-dark">2026 Analytics</span>
             </div>
             <div class="crms-card-body">
                 <div style="height: 260px;">
-                    <canvas id="crimesByMonthChart"></canvas>
+                    <canvas id="crimesByMonthChart" role="img" aria-label="Bar chart showing crime incident trends by month"></canvas>
                 </div>
             </div>
         </div>
@@ -200,11 +216,11 @@
     <div class="col-lg-4">
         <div class="crms-card h-100 mb-0">
             <div class="crms-card-header">
-                <h5><i class="bi bi-pie-chart-fill me-2 text-primary"></i> Crimes by Category</h5>
+                <h5><i class="bi bi-pie-chart-fill me-2 text-primary" aria-hidden="true"></i> Crimes by Category</h5>
             </div>
             <div class="crms-card-body">
                 <div style="height: 260px;">
-                    <canvas id="crimesByCategoryChart"></canvas>
+                    <canvas id="crimesByCategoryChart" role="img" aria-label="Pie chart showing crime distribution by category"></canvas>
                 </div>
             </div>
         </div>
@@ -216,11 +232,11 @@
     <div class="col-lg-4">
         <div class="crms-card mb-0">
             <div class="crms-card-header">
-                <h5><i class="bi bi-check2-square me-2 text-success"></i> Case Resolution Status</h5>
+                <h5><i class="bi bi-check2-square me-2 text-success" aria-hidden="true"></i> Case Resolution Status</h5>
             </div>
             <div class="crms-card-body">
                 <div style="height: 230px;">
-                    <canvas id="solvedVsUnsolvedChart"></canvas>
+                    <canvas id="solvedVsUnsolvedChart" role="img" aria-label="Doughnut chart showing solved versus unsolved case status"></canvas>
                 </div>
             </div>
         </div>
@@ -230,11 +246,11 @@
     <div class="col-lg-8">
         <div class="crms-card mb-0">
             <div class="crms-card-header">
-                <h5><i class="bi bi-geo-alt-fill me-2 text-danger"></i> Incident Distribution by Precinct / Location</h5>
+                <h5><i class="bi bi-geo-alt-fill me-2 text-danger" aria-hidden="true"></i> Incident Distribution by Precinct / Location</h5>
             </div>
             <div class="crms-card-body">
                 <div style="height: 230px;">
-                    <canvas id="crimesByLocationChart"></canvas>
+                    <canvas id="crimesByLocationChart" role="img" aria-label="Horizontal bar chart showing crime distribution by location or precinct"></canvas>
                 </div>
             </div>
         </div>
@@ -244,7 +260,7 @@
 <!-- Recent Case Files Table -->
 <div class="crms-card">
     <div class="crms-card-header">
-        <h5><i class="bi bi-clock-history me-2 text-primary"></i> Recent Case Investigation Files</h5>
+        <h5><i class="bi bi-clock-history me-2 text-primary" aria-hidden="true"></i> Recent Case Investigation Files</h5>
         <a href="{{ url_for('cases_list') }}" class="btn btn-sm btn-outline-primary fw-bold">View All Cases</a>
     </div>
     <div class="crms-card-body p-0">
@@ -252,14 +268,14 @@
             <table class="table table-custom align-middle mb-0">
                 <thead>
                     <tr>
-                        <th>Case Number</th>
-                        <th>FIR No.</th>
-                        <th>Crime Type</th>
-                        <th>Location</th>
-                        <th>Investigating Officer</th>
-                        <th>Status</th>
-                        <th>Start Date</th>
-                        <th>Action</th>
+                        <th scope="col">Case Number</th>
+                        <th scope="col">FIR No.</th>
+                        <th scope="col">Crime Type</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Investigating Officer</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -271,28 +287,28 @@
                         <td>{{ case.location }}</td>
                         <td>
                             {% if case.officer_name %}
-                                <i class="bi bi-shield me-1 text-muted"></i> {{ case.officer_name }}
+                                <i class="bi bi-shield me-1 text-muted" aria-hidden="true"></i> {{ case.officer_name }}
                             {% else %}
                                 <span class="text-muted fst-italic">Unassigned</span>
                             {% endif %}
                         </td>
                         <td>
                             {% if case.case_status == 'Active' %}
-                                <span class="badge-status badge-active"><i class="bi bi-play-circle-fill"></i> Active</span>
+                                <span class="badge-status badge-active"><i class="bi bi-play-circle-fill" aria-hidden="true"></i> Active</span>
                             {% elif case.case_status == 'Solved' %}
-                                <span class="badge-status badge-solved"><i class="bi bi-check-circle-fill"></i> Solved</span>
+                                <span class="badge-status badge-solved"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Solved</span>
                             {% elif case.case_status == 'Pending' %}
-                                <span class="badge-status badge-pending"><i class="bi bi-hourglass-split"></i> Pending</span>
+                                <span class="badge-status badge-pending"><i class="bi bi-hourglass-split" aria-hidden="true"></i> Pending</span>
                             {% elif case.case_status == 'In Court' %}
-                                <span class="badge-status badge-critical"><i class="bi bi-bank"></i> In Court</span>
+                                <span class="badge-status badge-critical"><i class="bi bi-bank" aria-hidden="true"></i> In Court</span>
                             {% else %}
                                 <span class="badge-status badge-closed">{{ case.case_status }}</span>
                             {% endif %}
                         </td>
                         <td class="text-muted">{{ case.start_date }}</td>
                         <td>
-                            <a href="{{ url_for('case_details', case_id=case.case_id) }}" class="btn btn-sm btn-light border">
-                                <i class="bi bi-eye-fill me-1"></i> Details
+                            <a href="{{ url_for('case_details', case_id=case.case_id) }}" class="btn btn-sm btn-light border" aria-label="View details for case {{ case.case_number }}">
+                                <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Details
                             </a>
                         </td>
                     </tr>
