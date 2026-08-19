@@ -4,7 +4,7 @@
 # Backend Framework: Python Flask & MySQL / SQLite
 
 import datetime
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from config import Config
 from utils import database, auth
 from utils.auth import login_required, admin_required, role_required

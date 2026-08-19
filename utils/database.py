@@ -60,7 +60,7 @@ def get_mysql_connection():
             connect_timeout=3
         )
         return conn
-    except Exception as e:
+    except Exception:
         return None
 
 def init_db():
@@ -102,7 +102,7 @@ def init_db():
             if stmt and not stmt.startswith('SET '):
                 try:
                     cursor.execute(stmt)
-                except Exception as ex:
+                except Exception:  # unused variable removed
                     pass
         conn.commit()
     
@@ -129,7 +129,7 @@ def init_db():
             if stmt:
                 try:
                     cursor.execute(stmt)
-                except Exception as ex:
+                except Exception:  # unused variable removed
                     pass
         conn.commit()
         
@@ -170,7 +170,6 @@ def execute_query(sql, params=None, fetchall=False, fetchone=False, commit=False
     Translates '%s' placeholder to '?' automatically if SQLite is active.
     Returns results as dictionary / dictionary list or inserted id/affected rows.
     """
-    global DB_ENGINE
     if DB_ENGINE is None:
         init_db()
 
@@ -245,7 +244,6 @@ def execute_transaction(query_list):
     If any query fails, the entire transaction is rolled back.
     query_list format: [(sql_1, params_1), (sql_2, params_2), ...]
     """
-    global DB_ENGINE
     if DB_ENGINE is None:
         init_db()
 
