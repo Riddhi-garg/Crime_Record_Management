@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}NCRB Dashboard - National Crime Record Management System{% endblock %}
+{% block title %}Crime Record Management Portal{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
 <div class="page-header">
     <div>
-        <h1 class="fw-bold text-dark"><i class="bi bi-speedometer2 text-primary me-2"></i> National Crime Record Bureau (NCRB) Portal</h1>
+        <h1 class="fw-bold text-dark"><i class="bi bi-speedometer2 text-primary me-2"></i> Crime Record Management Portal</h1>
         <p class="text-muted mb-0">Centralized crime intelligence, AI predictive analysis, biometric AFIS fingerprint matching, and citizen services.</p>
     </div>
     <div class="d-flex gap-2">
@@ -310,10 +310,10 @@
 <!-- Embed JSON data for Chart.js initialization -->
 <script>
     window.crmsChartData = {
-        months: {{ charts_data.months | tojson }},
-        categories: {{ charts_data.categories | tojson }},
-        status: {{ charts_data.status | tojson }},
-        locations: {{ charts_data.locations | tojson }}
+        months: {{ charts_data.months | default({}) | tojson }},
+        categories: {{ charts_data.categories | default({}) | tojson }},
+        status: {{ charts_data.status | default({}) | tojson }},
+        locations: {{ charts_data.locations | default({}) | tojson }}
     };
 </script>
 {% endblock %}

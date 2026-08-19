@@ -37,9 +37,7 @@ def internal_error(error):
     app.logger.error(f"Server Error: {error}")
     return render_template('500.html'), 500
 
-# ----------------------------------------------------------------------------
 # 1. AUTHENTICATION ROUTES
-# ----------------------------------------------------------------------------
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'user_id' in session:
@@ -79,13 +77,20 @@ def logout():
     flash("You have been logged out successfully.", "info")
     return redirect(url_for('login'))
 
-# ----------------------------------------------------------------------------
 # 2. DASHBOARD ROUTE
-# ----------------------------------------------------------------------------
 @app.route('/')
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    # Safe defaults — overwritten inside try block
+    stats = {'total_crimes': 0, 'active_cases': 0, 'solved_cases': 0, 'pending_cases': 0,
+             'total_criminals': 0, 'total_officers': 0, 'total_firs': 0, 'total_stations': 0,
+             'anonymous_tips': 0}
+    recent_cases = []
+    charts_data = {'months': {}, 'categories': {}, 'status': {}, 'locations': {}}
+    news_list = []
+    tenders_list = []
+    gallery_list = []
     try:
         # Retrieve system metrics
         stats = {
@@ -164,7 +169,8 @@ def dashboard():
         
     except Exception as e:
         app.logger.error(f"Dashboard query failed: {e}")
-        return render_template('500.html'), 500
+        # Do NOT return 500 — render dashboard with whatever data was collected
+        flash(f"Some dashboard data could not be loaded: {e}", "warning")
         
     return render_template(
         'dashboard.html', 
@@ -177,9 +183,7 @@ def dashboard():
         gallery_list=gallery_list
     )
 
-# ----------------------------------------------------------------------------
 # 3. CRIMINAL RECORDS CRUD
-# ----------------------------------------------------------------------------
 @app.route('/criminals', methods=['GET'])
 @login_required
 def criminals():
