@@ -19,62 +19,33 @@
     </div>
 </div>
 
-<!-- Special AI & Forensic Intelligence Launchpad -->
-<div class="row g-3 mb-4">
-    <!-- Card 1: Predictive Crime Analysis -->
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
-            <div class="card-body p-4 d-flex flex-column justify-content-between">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-cpu-fill me-1" aria-hidden="true"></i> AI POWERED</span>
-                        <i class="bi bi-graph-up-arrow fs-3 text-warning" aria-hidden="true"></i>
-                    </div>
-                    <h5 class="fw-bold text-white mb-2">Predictive Crime Analysis</h5>
-                    <p class="text-white-50 small mb-4">AI crime hotspot probability forecasting, time-slot risk score calculation, and precinct patrol optimization.</p>
-                </div>
-                <a href="{{ url_for('predictive_analysis') }}" class="btn btn-warning w-100 fw-bold shadow-sm">
-                    Launch Predictive AI Engine <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-                </a>
-            </div>
+<!-- PIC 2: NCRB PHOTO GALLERY SECTION -->
+<div class="crms-card mb-4 border shadow-sm rounded-3">
+    <div class="crms-card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-images text-primary me-2" aria-hidden="true"></i> Photo Gallery</h5>
+            <span class="text-muted" style="font-size: 0.85rem;">National Crime Records Bureau Conferences &amp; Official Events</span>
         </div>
+        <a href="{{ url_for('gallery') }}" class="btn btn-sm btn-outline-primary fw-bold" aria-label="View gallery archives"><i class="bi bi-archive me-1" aria-hidden="true"></i> Archives</a>
     </div>
-
-    <!-- Card 2: Cross-Agency Sharing -->
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #064e3b, #022c22); color: white;">
-            <div class="card-body p-4 d-flex flex-column justify-content-between">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-success text-white fw-bold px-2 py-1"><i class="bi bi-share-fill me-1" aria-hidden="true"></i> INTER-AGENCY</span>
-                        <i class="bi bi-diagram-3-fill fs-3 text-success" aria-hidden="true"></i>
+    <div class="crms-card-body p-4">
+        <div class="row g-3">
+            {% for album in gallery_list %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden rounded-3 hover-shadow transition">
+                    <div class="position-relative">
+                        <img src="{{ album.cover_image }}" class="card-img-top object-fit-cover" alt="{{ album.title }}" style="height: 180px;" loading="lazy">
+                        <span class="position-absolute bottom-0 end-0 bg-dark text-white px-2 py-1 m-2 rounded fw-bold opacity-90" style="font-size: 0.75rem;">
+                            <i class="bi bi-image me-1" aria-hidden="true"></i> {{ album.photo_count }}
+                        </span>
                     </div>
-                    <h5 class="fw-bold text-white mb-2">Cross-Agency Case Sharing</h5>
-                    <p class="text-white-50 small mb-4">Share case files, FIR records and criminal dossiers securely with CBI, NIA, NCB, State Police and other agencies.</p>
-                </div>
-                <a href="{{ url_for('cross_agency_sharing') }}" class="btn btn-success w-100 fw-bold shadow-sm">
-                    Open Sharing Console <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Card 3: Anonymous Tip Portal -->
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #451a03, #290e02); color: white;">
-            <div class="card-body p-4 d-flex flex-column justify-content-between">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-danger text-white fw-bold px-2 py-1"><i class="bi bi-incognito me-1" aria-hidden="true"></i> CITIZEN SERVICE</span>
-                        <i class="bi bi-shield-exclamation fs-3 text-danger" aria-hidden="true"></i>
+                    <div class="card-body bg-dark text-white p-3 text-center" style="background-color: #1e293b !important;">
+                        <h6 class="card-title fw-bold text-white mb-1 small">{{ album.title }}</h6>
+                        <span class="text-white-50" style="font-size: 0.75rem;"><i class="bi bi-calendar-event me-1" aria-hidden="true"></i> {{ album.event_date }}</span>
                     </div>
-                    <h5 class="fw-bold text-white mb-2">Anonymous Tip Portal</h5>
-                    <p class="text-white-50 small mb-4">Secure public portal for citizens to submit confidential crime leads with tracking code lookup.</p>
                 </div>
-                <a href="{{ url_for('anonymous_tip') }}" class="btn btn-danger w-100 fw-bold shadow-sm">
-                    Submit / Track Anonymous Tip <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-                </a>
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -164,33 +135,62 @@
     </div>
 </div>
 
-<!-- PIC 2: NCRB PHOTO GALLERY SECTION -->
-<div class="crms-card mb-4 border shadow-sm rounded-3">
-    <div class="crms-card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
-        <div>
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-images text-primary me-2" aria-hidden="true"></i> Photo Gallery</h5>
-            <span class="text-muted" style="font-size: 0.85rem;">National Crime Records Bureau Conferences &amp; Official Events</span>
-        </div>
-        <a href="{{ url_for('gallery') }}" class="btn btn-sm btn-outline-primary fw-bold" aria-label="View gallery archives"><i class="bi bi-archive me-1" aria-hidden="true"></i> Archives</a>
-    </div>
-    <div class="crms-card-body p-4">
-        <div class="row g-3">
-            {% for album in gallery_list %}
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm overflow-hidden rounded-3 hover-shadow transition">
-                    <div class="position-relative">
-                        <img src="{{ album.cover_image }}" class="card-img-top object-fit-cover" alt="{{ album.title }}" style="height: 180px;" loading="lazy">
-                        <span class="position-absolute bottom-0 end-0 bg-dark text-white px-2 py-1 m-2 rounded fw-bold opacity-90" style="font-size: 0.75rem;">
-                            <i class="bi bi-image me-1" aria-hidden="true"></i> {{ album.photo_count }}
-                        </span>
+<!-- Special AI & Forensic Intelligence Launchpad -->
+<div class="row g-3 mb-4">
+    <!-- Card 1: Predictive Crime Analysis -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-cpu-fill me-1" aria-hidden="true"></i> AI POWERED</span>
+                        <i class="bi bi-graph-up-arrow fs-3 text-warning" aria-hidden="true"></i>
                     </div>
-                    <div class="card-body bg-dark text-white p-3 text-center" style="background-color: #1e293b !important;">
-                        <h6 class="card-title fw-bold text-white mb-1 small">{{ album.title }}</h6>
-                        <span class="text-white-50" style="font-size: 0.75rem;"><i class="bi bi-calendar-event me-1" aria-hidden="true"></i> {{ album.event_date }}</span>
-                    </div>
+                    <h5 class="fw-bold text-white mb-2">Predictive Crime Analysis</h5>
+                    <p class="text-white-50 small mb-4">AI crime hotspot probability forecasting, time-slot risk score calculation, and precinct patrol optimization.</p>
                 </div>
+                <a href="{{ url_for('predictive_analysis') }}" class="btn btn-warning w-100 fw-bold shadow-sm">
+                    Launch Predictive AI Engine <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+                </a>
             </div>
-            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Card 2: Cross-Agency Sharing -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #064e3b, #022c22); color: white;">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-success text-white fw-bold px-2 py-1"><i class="bi bi-share-fill me-1" aria-hidden="true"></i> INTER-AGENCY</span>
+                        <i class="bi bi-diagram-3-fill fs-3 text-success" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="fw-bold text-white mb-2">Cross-Agency Case Sharing</h5>
+                    <p class="text-white-50 small mb-4">Share case files, FIR records and criminal dossiers securely with CBI, NIA, NCB, State Police and other agencies.</p>
+                </div>
+                <a href="{{ url_for('cross_agency_sharing') }}" class="btn btn-success w-100 fw-bold shadow-sm">
+                    Open Sharing Console <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3: Anonymous Tip Portal -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #451a03, #290e02); color: white;">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-danger text-white fw-bold px-2 py-1"><i class="bi bi-incognito me-1" aria-hidden="true"></i> CITIZEN SERVICE</span>
+                        <i class="bi bi-shield-exclamation fs-3 text-danger" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="fw-bold text-white mb-2">Anonymous Tip Portal</h5>
+                    <p class="text-white-50 small mb-4">Secure public portal for citizens to submit confidential crime leads with tracking code lookup.</p>
+                </div>
+                <a href="{{ url_for('anonymous_tip') }}" class="btn btn-danger w-100 fw-bold shadow-sm">
+                    Submit / Track Anonymous Tip <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+                </a>
+            </div>
         </div>
     </div>
 </div>
