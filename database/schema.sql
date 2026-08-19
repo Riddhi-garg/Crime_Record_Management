@@ -238,6 +238,67 @@ CREATE TABLE case_updates (
         REFERENCES police_officers(officer_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Table 15: news_events
+-- Official announcements, news bulletins, and tenders
+DROP TABLE IF EXISTS news_events;
+CREATE TABLE news_events (
+    news_id INT AUTO_INCREMENT PRIMARY KEY,
+    category ENUM('NEWS & EVENTS', 'TENDERS', 'NOTIFICATIONS', 'CIRCULARS') DEFAULT 'NEWS & EVENTS',
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    date_posted DATE NOT NULL,
+    file_attachment VARCHAR(255),
+    status ENUM('Active', 'Archived') DEFAULT 'Active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table 16: photo_gallery
+-- Official NCRB photo gallery albums
+DROP TABLE IF EXISTS photo_gallery;
+CREATE TABLE photo_gallery (
+    gallery_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    category VARCHAR(100) DEFAULT 'Event',
+    event_date DATE NOT NULL,
+    photo_count INT DEFAULT 1,
+    cover_image VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table 17: anonymous_tips
+-- Citizen confidential crime tip submissions
+DROP TABLE IF EXISTS anonymous_tips;
+CREATE TABLE anonymous_tips (
+    tip_id INT AUTO_INCREMENT PRIMARY KEY,
+    tracking_code VARCHAR(50) UNIQUE NOT NULL,
+    crime_type VARCHAR(100) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    date_submitted DATETIME NOT NULL,
+    status ENUM('Received', 'Under Review', 'Action Taken', 'Dismissed') DEFAULT 'Received',
+    assigned_officer_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_tip_officer FOREIGN KEY (assigned_officer_id) 
+        REFERENCES police_officers(officer_id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table 18: fingerprints
+-- Biometric minutiae records linked to criminal profiles
+DROP TABLE IF EXISTS fingerprints;
+CREATE TABLE fingerprints (
+    fingerprint_id INT AUTO_INCREMENT PRIMARY KEY,
+    criminal_id INT NOT NULL,
+    finger_position VARCHAR(50) NOT NULL,
+    minutiae_pattern VARCHAR(255) NOT NULL,
+    ridge_count INT DEFAULT 14,
+    pattern_type ENUM('Loop', 'Whorl', 'Arch', 'Accidental') DEFAULT 'Loop',
+    image_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_fp_criminal FOREIGN KEY (criminal_id) 
+        REFERENCES criminals(criminal_id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- INDEXES FOR OPTIMIZED SEARCH & JOIN PERFORMANCE
 CREATE INDEX idx_crimes_type ON crimes(crime_type);
 CREATE INDEX idx_crimes_status ON crimes(status);

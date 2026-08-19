@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Photo Gallery - National Crime Records Bureau - CRMS{% endblock %}
+
+{% block content %}
+<!-- Official Header Breadcrumb Matching Image 2 -->
+<div class="bg-light p-3 rounded-3 border mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1 small">
+                    <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}" class="text-decoration-none"><i class="bi bi-house-door-fill me-1"></i> Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Photo Gallery</li>
+                </ol>
+            </nav>
+            <h2 class="fw-bold text-dark mb-0">Photo Gallery</h2>
+        </div>
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-sm fw-bold">
+                <i class="bi bi-archive me-1"></i> Archives
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Photo Gallery Grid matching Image 2 -->
+<div class="row g-4 mb-4">
+    {% for album in albums %}
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm overflow-hidden rounded-3 hover-shadow transition">
+            <div class="position-relative">
+                <img src="{{ album.cover_image }}" class="card-img-top object-fit-cover" alt="{{ album.title }}" style="height: 220px;">
+                <span class="position-absolute bottom-0 end-0 bg-dark text-white px-2 py-1 m-2 rounded text-xs fw-bold opacity-90 shadow-sm" style="font-size: 0.8rem;">
+                    <i class="bi bi-images me-1"></i> {{ album.photo_count }}
+                </span>
+            </div>
+            <div class="card-body text-white p-3 text-center" style="background-color: #26292b !important;">
+                <h6 class="card-title fw-bold text-white mb-2 fs-6">{{ album.title }}</h6>
+                <div class="text-white-50 text-xs"><i class="bi bi-calendar-event me-1"></i> {{ album.event_date }}</div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 py-5 text-center text-muted">
+        <i class="bi bi-images display-1 text-secondary opacity-50 mb-3 d-block"></i>
+        <h5>No photo gallery records found.</h5>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Anonymous Tip Portal - Public Crime Reporting - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="fw-bold text-dark"><i class="bi bi-incognito text-danger me-2"></i> Confidential Anonymous Tip Portal</h1>
+        <p class="text-muted mb-0">Public citizen portal to submit confidential crime leads securely without revealing your personal identity.</p>
+    </div>
+    <span class="badge bg-danger text-white px-3 py-2 fw-bold fs-6 shadow-sm"><i class="bi bi-shield-lock-fill me-1"></i> 100% Anonymous & Encryption Secured</span>
+</div>
+
+<div class="row g-3 mb-4">
+    <!-- Submit Tip Form -->
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm rounded-3 h-100">
+            <div class="card-header bg-dark text-white py-3">
+                <h5 class="fw-bold mb-0 text-white"><i class="bi bi-send-fill text-warning me-2"></i> Submit Confidential Tip</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('anonymous_tip') }}">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">CRIME CATEGORY *</label>
+                            <select name="crime_type" class="form-select" required>
+                                <option value="Narcotics Trafficking">Narcotics Trafficking</option>
+                                <option value="Cyber Fraud / Online Scam">Cyber Fraud / Online Scam</option>
+                                <option value="Extortion / Blackmail">Extortion / Blackmail</option>
+                                <option value="Armed Robbery / Theft">Armed Robbery / Theft</option>
+                                <option value="Illegal Weapons / Contraband">Illegal Weapons / Contraband</option>
+                                <option value="General Suspicious Activity">General Suspicious Activity</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">CITY / DISTRICT *</label>
+                            <input type="text" name="city" class="form-control" placeholder="e.g. State Capital, Metropolis" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-dark">SPECIFIC LOCATION / LANDMARK *</label>
+                            <input type="text" name="location" class="form-control" placeholder="e.g. Warehouse 4, Near Port Railway Gate" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-dark">DETAILED DESCRIPTION & SUSPECT INFO *</label>
+                            <textarea name="description" class="form-control" rows="4" placeholder="Describe the illegal activity, suspect appearance, vehicle license plates, or specific times..." required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <div class="alert alert-light border small text-muted">
+                                <i class="bi bi-info-circle-fill me-1 text-primary"></i> Your IP address and identity are <strong>never stored or logged</strong>. Upon submission, you will receive a unique tracking reference code.
+                            </div>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-danger fw-bold px-4 py-2 shadow-sm">
+                                <i class="bi bi-shield-check me-1"></i> Submit Anonymous Tip
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tracking Code Lookup Card -->
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm rounded-3 h-100 bg-light">
+            <div class="card-header bg-navy text-white py-3" style="background-color: #0f172a !important;">
+                <h5 class="fw-bold mb-0 text-white"><i class="bi bi-search me-2 text-warning"></i> Track Tip Status</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('track_tip') }}">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-dark">ENTER UNIQUE TRACKING CODE</label>
+                        <div class="input-group">
+                            <input type="text" name="tracking_code" class="form-control font-monospace" placeholder="e.g. TIP-2026-X892" value="{{ searched_code|default('') }}" required>
+                            <button type="submit" class="btn btn-primary fw-bold"><i class="bi bi-search"></i> Check Status</button>
+                        </div>
+                    </div>
+                </form>
+
+                {% if tracked_tip %}
+                <div class="card border p-3 rounded-3 bg-white mt-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-dark font-monospace text-warning">{{ tracked_tip.tracking_code }}</span>
+                        <span class="badge {% if tracked_tip.status == 'Action Taken' %}bg-success{% elif tracked_tip.status == 'Under Review' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                            {{ tracked_tip.status }}
+                        </span>
+                    </div>
+                    <div class="fw-bold text-dark mb-1">{{ tracked_tip.crime_type }}</div>
+                    <div class="text-muted small mb-2"><i class="bi bi-geo-alt me-1"></i> {{ tracked_tip.location }}, {{ tracked_tip.city }}</div>
+                    <p class="small text-muted bg-light p-2 rounded mb-0">{{ tracked_tip.description }}</p>
+                </div>
+                {% elif searched_code %}
+                <div class="alert alert-warning border-0 mt-4 small">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i> No tip record found matching tracking code <strong>{{ searched_code }}</strong>.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

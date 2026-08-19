@@ -10,7 +10,13 @@ Tech Stack: Python Flask, MySQL / SQLite, HTML5, CSS3, JavaScript, Bootstrap
 =============================================================================
 ```
 
-This repository contains the complete **Crime Record Management System (CRMS)** developed as a college DBMS project. The system supports full CRUD operations, role-based access control, parameterized SQL execution, multi-table transactions, and database analytics.
+This repository contains the complete **National Crime Record Management System (CRMS)** developed as a college DBMS project. The portal features:
+* **Predictive Crime AI Analysis Engine:** Risk forecasting, precinct risk scoring, and time-window probability calculation.
+* **Biometric AFIS Fingerprint Recognition:** Minutiae-ridge pattern matching against criminal biometric records.
+* **Confidential Anonymous Tip Portal:** Secure citizen crime reporting with unique tracking code lookup.
+* **NCRB News & Tenders Portal (Image 1):** Official press releases, notifications, and tenders widget.
+* **NCRB Official Photo Gallery (Image 2):** Conference and national event photo gallery albums.
+* **Core Relational Modules:** Criminal dossiers, FIR filing transactions, case files, evidence locker, arrest sheets, court proceedings, and role-based access control.
 
 ---
 

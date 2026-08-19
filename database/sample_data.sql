@@ -5,6 +5,10 @@ USE crime_record_management;
 
 -- Clear existing data in reverse FK order
 SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE fingerprints;
+TRUNCATE TABLE anonymous_tips;
+TRUNCATE TABLE photo_gallery;
+TRUNCATE TABLE news_events;
 TRUNCATE TABLE case_updates;
 TRUNCATE TABLE court_records;
 TRUNCATE TABLE arrests;
@@ -267,3 +271,41 @@ INSERT INTO case_updates (update_id, case_id, officer_id, update_text, update_da
 (9, 9, 3, 'SIT team conducted ballistic test on recovered 9mm shell casings.', '2026-02-21 09:15:00'),
 (10, 10, 4, 'Hostage location pinpointed via mobile tower triangulation.', '2026-02-28 22:10:00'),
 (11, 10, 4, 'Successful rescue operation executed, victim unharmed.', '2026-03-01 02:40:00');
+
+-- ----------------------------------------------------------------------------
+-- 15. Insert News & Events / Tenders
+-- ----------------------------------------------------------------------------
+INSERT INTO news_events (news_id, category, title, description, date_posted, status) VALUES
+(1, 'NEWS & EVENTS', '26th All India Finger Print Conference 2026', 'National conference organized by NCRB showcasing modern automated fingerprint identification systems (AFIS) and AI forensics.', '2026-06-20', 'Active'),
+(2, 'NEWS & EVENTS', 'International Yoga Day 2026 Celebrations', 'Special wellness and health sessions organized across NCRB headquarters and state crime record bureaus.', '2026-06-21', 'Active'),
+(3, 'NEWS & EVENTS', 'Implementation of New Criminal Laws 2026', 'Comprehensive training workshops conducted for investigating officers regarding modern criminal procedural frameworks.', '2026-07-01', 'Active'),
+(4, 'TENDERS', 'Tender for Supply and Installation of AFIS Biometric Scanner Hardware', 'Open tender for procurement of high-resolution optical fingerprint scanner hardware for district police stations.', '2026-08-05', 'Active'),
+(5, 'TENDERS', 'RFP for Modernization of Cyber Crime Forensics Lab', 'Request for Proposal regarding upgrading high-performance digital forensics hardware and disk imaging tools.', '2026-08-10', 'Active');
+
+-- ----------------------------------------------------------------------------
+-- 16. Insert Photo Gallery Albums (Matching NCRB Official Gallery Layout)
+-- ----------------------------------------------------------------------------
+INSERT INTO photo_gallery (gallery_id, title, category, event_date, photo_count, cover_image) VALUES
+(1, 'International Yoga Day 2026', 'Wellness', '2026-06-21', 19, 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=600&q=80'),
+(2, 'All India Finger Print Conference 2026', 'National Seminar', '2026-06-20', 24, 'https://images.unsplash.com/photo-1576085898323-218337e3e43c?auto=format&fit=crop&w=600&q=80'),
+(3, 'World Environment Day 2026', 'Social Awareness', '2026-06-05', 7, 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80'),
+(4, 'ICJS Taskforce Review Meeting 2026', 'Executive Meeting', '2026-05-14', 16, 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80'),
+(5, 'National Cyber Crime Workshop 2026', 'Training', '2026-04-18', 12, 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80');
+
+-- ----------------------------------------------------------------------------
+-- 17. Insert Anonymous Tips
+-- ----------------------------------------------------------------------------
+INSERT INTO anonymous_tips (tip_id, tracking_code, crime_type, location, city, description, date_submitted, status, assigned_officer_id) VALUES
+(1, 'TIP-2026-X892', 'Narcotics Trafficking', 'Warehouse 4, Port Area', 'State Capital', 'Unmarked containers being loaded late night every Friday.', '2026-08-01 22:15:00', 'Under Review', 1),
+(2, 'TIP-2026-B310', 'Cyber Fraud', 'Sector 18 Cyber Hub', 'Metropolis', 'Call center running illegal online loan scam app targeting elderly citizens.', '2026-08-05 14:30:00', 'Action Taken', 2),
+(3, 'TIP-2026-M405', 'Extortion', 'Central Market Complex', 'North District', 'Local gang demanding weekly extortion money from street vendors.', '2026-08-11 18:45:00', 'Received', NULL);
+
+-- ----------------------------------------------------------------------------
+-- 18. Insert Fingerprint Records
+-- ----------------------------------------------------------------------------
+INSERT INTO fingerprints (fingerprint_id, criminal_id, finger_position, minutiae_pattern, ridge_count, pattern_type, image_url) VALUES
+(1, 1, 'Right Thumb', 'WHORL-CORE-DELTA-ALPHA-01', 18, 'Whorl', '/static/images/fingerprints/fp_gabbar.png'),
+(2, 2, 'Left Index', 'LOOP-ULNAR-DELTA-BETA-02', 14, 'Loop', '/static/images/fingerprints/fp_robert.png'),
+(3, 4, 'Right Index', 'ARCH-TENTED-GAMMA-04', 12, 'Arch', '/static/images/fingerprints/fp_mogambo.png'),
+(4, 7, 'Left Thumb', 'WHORL-ACCIDENTAL-DELTA-07', 16, 'Accidental', '/static/images/fingerprints/fp_teja.png'),
+(5, 13, 'Right Ring', 'LOOP-RADIAL-DELTA-13', 15, 'Loop', '/static/images/fingerprints/fp_gogo.png');

@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Crime Record Management System{% endblock %}
+{% block title %}NCRB Dashboard - National Crime Record Management System{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
 <div class="page-header">
     <div>
-        <h1>System Overview Dashboard</h1>
-        <p>Real-time analytics and criminal investigation metrics.</p>
+        <h1 class="fw-bold text-dark"><i class="bi bi-speedometer2 text-primary me-2"></i> National Crime Record Bureau (NCRB) Portal</h1>
+        <p class="text-muted mb-0">Centralized crime intelligence, AI predictive analysis, biometric AFIS fingerprint matching, and citizen services.</p>
     </div>
     <div class="d-flex gap-2">
         <a href="{{ url_for('fir_list') }}" class="btn btn-primary shadow-sm fw-bold">
@@ -19,101 +19,162 @@
     </div>
 </div>
 
-<!-- Stat Cards Grid (8 Core Metrics) -->
+<!-- Special AI & Forensic Intelligence Launchpad -->
 <div class="row g-3 mb-4">
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-blue">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-            </div>
-            <div class="stat-info">
-                <h3>{{ stats.total_crimes }}</h3>
-                <p>Total Crimes</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-orange">
-                <i class="bi bi-folder-symlink-fill"></i>
-            </div>
-            <div class="stat-info">
-                <h3>{{ stats.active_cases }}</h3>
-                <p>Active Cases</p>
+    <!-- Card 1: Predictive Crime Analysis -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-cpu-fill me-1"></i> AI POWERED</span>
+                        <i class="bi bi-graph-up-arrow fs-3 text-warning"></i>
+                    </div>
+                    <h5 class="fw-bold text-white mb-2">Predictive Crime Analysis</h5>
+                    <p class="text-white-50 small mb-4">AI crime hotspot probability forecasting, time-slot risk score calculation, and precinct patrol optimization.</p>
+                </div>
+                <a href="{{ url_for('predictive_analysis') }}" class="btn btn-warning w-100 fw-bold shadow-sm">
+                    Launch Predictive AI Engine <i class="bi bi-arrow-right ms-1"></i>
+                </a>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-green">
-                <i class="bi bi-check-circle-fill"></i>
-            </div>
-            <div class="stat-info">
-                <h3>{{ stats.solved_cases }}</h3>
-                <p>Solved Cases</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-red">
-                <i class="bi bi-hourglass-split"></i>
-            </div>
-            <div class="stat-info">
-                <h3>{{ stats.pending_cases }}</h3>
-                <p>Pending Cases</p>
+    <!-- Card 2: Fingerprint Recognition AFIS -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #092c4c, #03182e); color: white;">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-info text-dark fw-bold px-2 py-1"><i class="bi bi-fingerprint me-1"></i> BIOMETRIC AFIS</span>
+                        <i class="bi bi-shield-lock-fill fs-3 text-info"></i>
+                    </div>
+                    <h5 class="fw-bold text-white mb-2">Fingerprint Recognition Engine</h5>
+                    <p class="text-white-50 small mb-4">Automated fingerprint minutiae-ridge pattern matching against national criminal database records.</p>
+                </div>
+                <a href="{{ url_for('fingerprint_matching') }}" class="btn btn-info text-dark w-100 fw-bold shadow-sm">
+                    Open AFIS Scanner <i class="bi bi-arrow-right ms-1"></i>
+                </a>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-navy">
-                <i class="bi bi-person-badge-fill"></i>
-            </div>
-            <div class="stat-info">
-                <h3>{{ stats.total_criminals }}</h3>
-                <p>Total Criminals</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-purple">
-                <i class="bi bi-person-workspace"></i>
-            </div>
-            <div class="stat-info">
-                <h3>{{ stats.total_officers }}</h3>
-                <p>Police Officers</p>
+    <!-- Card 3: Anonymous Tip Portal -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 h-100" style="background: linear-gradient(135deg, #451a03, #290e02); color: white;">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-danger text-white fw-bold px-2 py-1"><i class="bi bi-incognito me-1"></i> CITIZEN SERVICE</span>
+                        <i class="bi bi-shield-exclamation fs-3 text-danger"></i>
+                    </div>
+                    <h5 class="fw-bold text-white mb-2">Anonymous Tip Portal</h5>
+                    <p class="text-white-50 small mb-4">Secure public portal for citizens to submit confidential crime leads with tracking code lookup.</p>
+                </div>
+                <a href="{{ url_for('anonymous_tip') }}" class="btn btn-danger w-100 fw-bold shadow-sm">
+                    Submit / Track Anonymous Tip <i class="bi bi-arrow-right ms-1"></i>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-blue">
-                <i class="bi bi-file-earmark-text-fill"></i>
+<!-- PIC 1: NEWS & EVENTS / TENDERS TABBED WIDGET -->
+<div class="crms-card mb-4 border shadow-sm rounded-3">
+    <div class="crms-card-header bg-light border-bottom p-0">
+        <ul class="nav nav-tabs border-0" id="newsTendersTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active px-4 py-3 fw-bold text-uppercase" id="news-tab" data-bs-toggle="tab" data-bs-target="#news-content" type="button" role="tab" style="letter-spacing: 0.5px;">
+                    <i class="bi bi-newspaper me-2"></i> NEWS & EVENTS
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link px-4 py-3 fw-bold text-uppercase" id="tenders-tab" data-bs-toggle="tab" data-bs-target="#tenders-content" type="button" role="tab" style="letter-spacing: 0.5px;">
+                    <i class="bi bi-file-earmark-code me-2"></i> TENDERS
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="crms-card-body p-4">
+        <div class="tab-content" id="newsTendersTabContent">
+            <!-- News Tab -->
+            <div class="tab-pane fade show active" id="news-content" role="tabpanel">
+                <div class="list-group list-group-flush">
+                    {% for n in news_list %}
+                    <div class="list-group-item px-0 py-3 border-bottom d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="badge bg-primary text-white" style="font-size: 0.75rem;">NEWS</span>
+                                <span class="text-muted small"><i class="bi bi-calendar3 me-1"></i> {{ n.date_posted }}</span>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">{{ n.title }}</h6>
+                            <p class="text-muted small mb-0">{{ n.description }}</p>
+                        </div>
+                        <a href="{{ url_for('news') }}" class="btn btn-sm btn-outline-primary fw-bold text-nowrap ms-3">View Details</a>
+                    </div>
+                    {% else %}
+                    <div class="py-4 text-center text-muted">No Records Found.</div>
+                    {% endfor %}
+                </div>
+                <div class="text-end mt-3">
+                    <a href="{{ url_for('news') }}" class="text-decoration-none fw-bold text-primary small">View All <i class="bi bi-chevron-right ms-1"></i></a>
+                </div>
             </div>
-            <div class="stat-info">
-                <h3>{{ stats.total_firs }}</h3>
-                <p>Total FIRs Filed</p>
+
+            <!-- Tenders Tab -->
+            <div class="tab-pane fade" id="tenders-content" role="tabpanel">
+                <div class="list-group list-group-flush">
+                    {% for t in tenders_list %}
+                    <div class="list-group-item px-0 py-3 border-bottom d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="badge bg-secondary text-white" style="font-size: 0.75rem;">TENDER</span>
+                                <span class="text-muted small"><i class="bi bi-calendar3 me-1"></i> {{ t.date_posted }}</span>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">{{ t.title }}</h6>
+                            <p class="text-muted small mb-0">{{ t.description }}</p>
+                        </div>
+                        <a href="{{ url_for('tenders') }}" class="btn btn-sm btn-outline-secondary fw-bold text-nowrap ms-3">Download RFP</a>
+                    </div>
+                    {% else %}
+                    <div class="py-4 text-center text-muted">No Records Found.</div>
+                    {% endfor %}
+                </div>
+                <div class="text-end mt-3">
+                    <a href="{{ url_for('tenders') }}" class="text-decoration-none fw-bold text-secondary small">View All <i class="bi bi-chevron-right ms-1"></i></a>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="stat-icon-wrapper icon-navy">
-                <i class="bi bi-building"></i>
+<!-- PIC 2: NCRB PHOTO GALLERY SECTION -->
+<div class="crms-card mb-4 border shadow-sm rounded-3">
+    <div class="crms-card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-images text-primary me-2"></i> Photo Gallery</h5>
+            <small class="text-muted">National Crime Records Bureau Conferences & Official Events</small>
+        </div>
+        <a href="{{ url_for('gallery') }}" class="btn btn-sm btn-outline-primary fw-bold"><i class="bi bi-archive me-1"></i> Archives</a>
+    </div>
+    <div class="crms-card-body p-4">
+        <div class="row g-3">
+            {% for album in gallery_list %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden rounded-3 hover-shadow transition">
+                    <div class="position-relative">
+                        <img src="{{ album.cover_image }}" class="card-img-top object-fit-cover" alt="{{ album.title }}" style="height: 180px;">
+                        <span class="position-absolute bottom-0 end-0 bg-dark text-white px-2 py-1 m-2 rounded text-xs fw-bold opacity-90">
+                            <i class="bi bi-image me-1"></i> {{ album.photo_count }}
+                        </span>
+                    </div>
+                    <div class="card-body bg-dark text-white p-3 text-center" style="background-color: #1e293b !important;">
+                        <h6 class="card-title fw-bold text-white mb-1 small">{{ album.title }}</h6>
+                        <small class="text-white-50 text-xs"><i class="bi bi-calendar-event me-1"></i> {{ album.event_date }}</small>
+                    </div>
+                </div>
             </div>
-            <div class="stat-info">
-                <h3>{{ stats.total_stations }}</h3>
-                <p>Police Stations</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

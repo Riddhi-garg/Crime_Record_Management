@@ -20,6 +20,44 @@
 <body>
 
     {% if session.get('user_id') %}
+    <!-- Official Government Header Bar (Matching Image 2) -->
+    <div class="gov-top-header bg-dark text-white py-1 px-3 border-bottom border-secondary d-flex justify-content-between align-items-center text-xs" style="font-size: 0.8rem; background-color: #0b1329 !important;">
+        <div class="d-flex align-items-center gap-3">
+            <span><strong>भारत सरकार</strong> GOVERNMENT OF INDIA</span>
+            <span class="d-none d-md-inline">|</span>
+            <span class="d-none d-md-inline"><strong>गृह मंत्रालय</strong> MINISTRY OF HOME AFFAIRS</span>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <a href="{{ url_for('anonymous_tip') }}" class="text-warning text-decoration-none fw-bold"><i class="bi bi-shield-lock-fill me-1"></i> Anonymous Tip Portal</a>
+            <span class="d-none d-sm-inline">|</span>
+            <a href="{{ url_for('news') }}" class="text-white text-decoration-none d-none d-sm-inline">Citizen Services</a>
+            <span class="d-none d-sm-inline">|</span>
+            <a href="{{ url_for('gallery') }}" class="text-white text-decoration-none d-none d-sm-inline">Photo Gallery</a>
+        </div>
+    </div>
+
+    <!-- Official NCRB Emblem Sub-Banner -->
+    <div class="ncrb-sub-banner bg-white py-2 px-3 border-bottom d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+            <div class="ncrb-emblem-badge bg-navy text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 44px; height: 44px; background: linear-gradient(135deg, #0f172a, #1e293b);">
+                <i class="bi bi-shield-fill-check fs-4 text-warning"></i>
+            </div>
+            <div>
+                <div class="fw-bold text-dark lh-1 fs-5" style="letter-spacing: -0.3px;">राष्ट्रीय अपराध रिकॉर्ड ब्यूरो</div>
+                <div class="text-primary fw-bold text-uppercase small" style="font-size: 0.85rem; letter-spacing: 0.5px;">NATIONAL CRIME RECORDS BUREAU</div>
+                <div class="text-muted text-xs d-none d-md-block" style="font-size: 0.75rem;">Empowering Indian Police with Information Technology</div>
+            </div>
+        </div>
+        <div class="d-none d-md-flex align-items-center gap-2">
+            <a href="{{ url_for('predictive_analysis') }}" class="btn btn-sm btn-outline-primary fw-bold">
+                <i class="bi bi-cpu me-1"></i> Predictive AI
+            </a>
+            <a href="{{ url_for('fingerprint_matching') }}" class="btn btn-sm btn-outline-secondary fw-bold">
+                <i class="bi bi-fingerprint me-1"></i> AFIS Fingerprint
+            </a>
+        </div>
+    </div>
+
     <div id="wrapper">
         <!-- Sidebar Navigation -->
         <nav id="sidebar">
@@ -36,6 +74,26 @@
                     <a href="{{ url_for('dashboard') }}">
                         <i class="bi bi-speedometer2"></i> 
                         <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-category">AI & Forensic Tools</li>
+                <li class="{% if active_page == 'predictive_analysis' %}active{% endif %}">
+                    <a href="{{ url_for('predictive_analysis') }}">
+                        <i class="bi bi-cpu-fill text-warning"></i> 
+                        <span>Predictive AI Analysis</span>
+                    </a>
+                </li>
+                <li class="{% if active_page == 'fingerprint_matching' %}active{% endif %}">
+                    <a href="{{ url_for('fingerprint_matching') }}">
+                        <i class="bi bi-fingerprint text-info"></i> 
+                        <span>Fingerprint Matching</span>
+                    </a>
+                </li>
+                <li class="{% if active_page == 'tip' or active_page == 'tips_management' %}active{% endif %}">
+                    <a href="{% if session.get('role') == 'Admin' %}{{ url_for('tips_management') }}{% else %}{{ url_for('anonymous_tip') }}{% endif %}">
+                        <i class="bi bi-incognito text-danger"></i> 
+                        <span>Anonymous Tip Portal</span>
                     </a>
                 </li>
                 
@@ -94,6 +152,20 @@
                     <a href="{{ url_for('court_records_list') }}">
                         <i class="bi bi-bank"></i> 
                         <span>Court Proceedings</span>
+                    </a>
+                </li>
+
+                <li class="menu-category">Media & Tenders</li>
+                <li class="{% if active_page == 'gallery' %}active{% endif %}">
+                    <a href="{{ url_for('gallery') }}">
+                        <i class="bi bi-images"></i> 
+                        <span>Photo Gallery</span>
+                    </a>
+                </li>
+                <li class="{% if active_page == 'news' or active_page == 'tenders' %}active{% endif %}">
+                    <a href="{{ url_for('news') }}">
+                        <i class="bi bi-newspaper"></i> 
+                        <span>News & Tenders</span>
                     </a>
                 </li>
 
