@@ -52,8 +52,8 @@
             <a href="{{ url_for('predictive_analysis') }}" class="btn btn-sm btn-outline-primary fw-bold">
                 <i class="bi bi-cpu me-1"></i> Predictive AI
             </a>
-            <a href="{{ url_for('fingerprint_matching') }}" class="btn btn-sm btn-outline-secondary fw-bold">
-                <i class="bi bi-fingerprint me-1"></i> AFIS Fingerprint
+            <a href="{{ url_for('cross_agency_sharing') }}" class="btn btn-sm btn-outline-secondary fw-bold">
+                <i class="bi bi-share me-1"></i> Agency Sharing
             </a>
         </div>
     </div>
@@ -84,10 +84,10 @@
                         <span>Predictive AI Analysis</span>
                     </a>
                 </li>
-                <li class="{% if active_page == 'fingerprint_matching' %}active{% endif %}">
-                    <a href="{{ url_for('fingerprint_matching') }}">
-                        <i class="bi bi-fingerprint text-info"></i> 
-                        <span>Fingerprint Matching</span>
+                <li class="{% if active_page == 'cross_agency_sharing' %}active{% endif %}">
+                    <a href="{{ url_for('cross_agency_sharing') }}">
+                        <i class="bi bi-share-fill text-success"></i> 
+                        <span>Cross-Agency Sharing</span>
                     </a>
                 </li>
                 <li class="{% if active_page == 'tip' or active_page == 'tips_management' %}active{% endif %}">

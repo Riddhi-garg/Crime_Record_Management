@@ -5,7 +5,7 @@ USE crime_record_management;
 
 -- Clear existing data in reverse FK order
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE fingerprints;
+TRUNCATE TABLE agency_shares;
 TRUNCATE TABLE anonymous_tips;
 TRUNCATE TABLE photo_gallery;
 TRUNCATE TABLE news_events;
@@ -301,11 +301,11 @@ INSERT INTO anonymous_tips (tip_id, tracking_code, crime_type, location, city, d
 (3, 'TIP-2026-M405', 'Extortion', 'Central Market Complex', 'North District', 'Local gang demanding weekly extortion money from street vendors.', '2026-08-11 18:45:00', 'Received', NULL);
 
 -- ----------------------------------------------------------------------------
--- 18. Insert Fingerprint Records
+-- 18. Insert Cross-Agency Share Records
 -- ----------------------------------------------------------------------------
-INSERT INTO fingerprints (fingerprint_id, criminal_id, finger_position, minutiae_pattern, ridge_count, pattern_type, image_url) VALUES
-(1, 1, 'Right Thumb', 'WHORL-CORE-DELTA-ALPHA-01', 18, 'Whorl', '/static/images/fingerprints/fp_gabbar.png'),
-(2, 2, 'Left Index', 'LOOP-ULNAR-DELTA-BETA-02', 14, 'Loop', '/static/images/fingerprints/fp_robert.png'),
-(3, 4, 'Right Index', 'ARCH-TENTED-GAMMA-04', 12, 'Arch', '/static/images/fingerprints/fp_mogambo.png'),
-(4, 7, 'Left Thumb', 'WHORL-ACCIDENTAL-DELTA-07', 16, 'Accidental', '/static/images/fingerprints/fp_teja.png'),
-(5, 13, 'Right Ring', 'LOOP-RADIAL-DELTA-13', 15, 'Loop', '/static/images/fingerprints/fp_gogo.png');
+INSERT INTO agency_shares (share_id, case_id, target_agency, share_type, priority, notes, shared_by_user_id, status, shared_on) VALUES
+(1, 1, 'Central Bureau of Investigation (CBI)', 'Full Investigation Package', 'Urgent', 'Suspected cross-border nexus. CBI jurisdiction overlap confirmed by SP.', 1, 'Acknowledged', '2026-04-10'),
+(2, 2, 'Narcotics Control Bureau (NCB)', 'Case File', 'High', 'Drug syndicate links to Case CASE-2026-0102. NCB requested full FIR and evidence log.', 1, 'In Review', '2026-05-01'),
+(3, 3, 'National Investigation Agency (NIA)', 'Criminal Dossier', 'Urgent', 'Suspect profile matches NIA watchlist entry. Sharing criminal dossier for verification.', 1, 'Pending', '2026-06-15'),
+(4, 4, 'Enforcement Directorate (ED)', 'FIR Copy', 'Normal', 'Financial fraud proceeds traced. ED requested FIR copy for PMLA proceedings.', 2, 'Actioned', '2026-07-03'),
+(5, 5, 'State Crime Investigation Department (CID)', 'Evidence Report', 'Normal', 'Digital forensic evidence relevant to statewide cyber fraud investigation.', 2, 'Pending', '2026-08-01');

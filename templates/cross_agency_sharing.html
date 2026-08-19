@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Cross-Agency Case Sharing Console - CRMS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="fw-bold text-dark"><i class="bi bi-diagram-3-fill text-success me-2" aria-hidden="true"></i> Cross-Agency Case Sharing Console</h1>
+        <p class="text-muted mb-0">Securely share case files, FIR records, and criminal dossiers with CBI, NIA, NCB, ED, and State Police agencies.</p>
+    </div>
+    <button class="btn btn-success fw-bold shadow-sm px-3" data-bs-toggle="modal" data-bs-target="#shareModal">
+        <i class="bi bi-share-fill me-1" aria-hidden="true"></i> Share New Case
+    </button>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="crms-stat-card">
+            <div class="crms-stat-icon" style="background: linear-gradient(135deg, #d1fae5, #6ee7b7);"><i class="bi bi-share-fill text-success" aria-hidden="true"></i></div>
+            <div class="crms-stat-value">{{ shares | length }}</div>
+            <div class="crms-stat-label">Total Shares</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="crms-stat-card">
+            <div class="crms-stat-icon" style="background: linear-gradient(135deg, #fef3c7, #fde68a);"><i class="bi bi-hourglass-split text-warning" aria-hidden="true"></i></div>
+            <div class="crms-stat-value">{{ shares | selectattr('status', 'equalto', 'Pending') | list | length }}</div>
+            <div class="crms-stat-label">Pending</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="crms-stat-card">
+            <div class="crms-stat-icon" style="background: linear-gradient(135deg, #dbeafe, #93c5fd);"><i class="bi bi-eye-fill text-primary" aria-hidden="true"></i></div>
+            <div class="crms-stat-value">{{ shares | selectattr('status', 'equalto', 'In Review') | list | length }}</div>
+            <div class="crms-stat-label">In Review</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="crms-stat-card">
+            <div class="crms-stat-icon" style="background: linear-gradient(135deg, #d1fae5, #34d399);"><i class="bi bi-check-circle-fill text-success" aria-hidden="true"></i></div>
+            <div class="crms-stat-value">{{ shares | selectattr('status', 'equalto', 'Actioned') | list | length }}</div>
+            <div class="crms-stat-label">Actioned</div>
+        </div>
+    </div>
+</div>
+
+<!-- Shared Cases Table -->
+<div class="crms-card">
+    <div class="crms-card-header bg-white border-bottom">
+        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-list-stars text-success me-2" aria-hidden="true"></i> Active Inter-Agency Case Share Requests</h5>
+    </div>
+    <div class="crms-card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Case Number</th>
+                        <th scope="col">Crime Type</th>
+                        <th scope="col">Target Agency</th>
+                        <th scope="col">Share Type</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Shared By</th>
+                        <th scope="col">Shared On</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in shares %}
+                    <tr>
+                        <td class="text-muted small">{{ loop.index }}</td>
+                        <td class="fw-bold">
+                            <a href="{{ url_for('case_details', case_id=s.case_id) }}" class="text-decoration-none text-primary">
+                                {{ s.case_number }}
+                            </a>
+                        </td>
+                        <td class="fw-semibold">{{ s.crime_type }}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-building text-success" aria-hidden="true"></i>
+                                <span class="fw-semibold text-dark">{{ s.target_agency }}</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">{{ s.share_type }}</span></td>
+                        <td>
+                            {% if s.priority == 'Urgent' %}
+                                <span class="badge bg-danger">Urgent</span>
+                            {% elif s.priority == 'High' %}
+                                <span class="badge bg-warning text-dark">High</span>
+                            {% elif s.priority == 'Normal' %}
+                                <span class="badge bg-info text-dark">Normal</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Low</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if s.shared_by_name %}
+                                <i class="bi bi-person-badge me-1 text-muted" aria-hidden="true"></i> {{ s.shared_by_name }}
+                            {% else %}
+                                <span class="text-muted fst-italic">System</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-muted small">{{ s.shared_on }}</td>
+                        <td>
+                            {% if s.status == 'Actioned' %}
+                                <span class="badge bg-success">Actioned</span>
+                            {% elif s.status == 'Acknowledged' %}
+                                <span class="badge bg-primary">Acknowledged</span>
+                            {% elif s.status == 'In Review' %}
+                                <span class="badge bg-warning text-dark">In Review</span>
+                            {% elif s.status == 'Rejected' %}
+                                <span class="badge bg-danger">Rejected</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="9" class="text-center py-5 text-muted">
+                            <i class="bi bi-share display-4 d-block mb-2 opacity-50" aria-hidden="true"></i>
+                            No inter-agency share requests yet. Click <strong>Share New Case</strong> to begin.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Share Case Modal -->
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('cross_agency_sharing') }}">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title text-white" id="shareModalLabel">
+                        <i class="bi bi-share-fill me-2" aria-hidden="true"></i> Share Case with External Agency
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body row g-3 p-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small" for="case_id_select">CASE TO SHARE *</label>
+                        <select name="case_id" id="case_id_select" class="form-select" required>
+                            <option value="">-- Select Case --</option>
+                            {% for c in cases %}
+                            <option value="{{ c.case_id }}">{{ c.case_number }} — {{ c.crime_type }} ({{ c.location }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small" for="target_agency_select">TARGET AGENCY *</label>
+                        <select name="target_agency" id="target_agency_select" class="form-select" required>
+                            <option value="">-- Select Agency --</option>
+                            <option>Central Bureau of Investigation (CBI)</option>
+                            <option>National Investigation Agency (NIA)</option>
+                            <option>Narcotics Control Bureau (NCB)</option>
+                            <option>Enforcement Directorate (ED)</option>
+                            <option>Central Industrial Security Force (CISF)</option>
+                            <option>State Crime Investigation Department (CID)</option>
+                            <option>Intelligence Bureau (IB)</option>
+                            <option>Research and Analysis Wing (RAW)</option>
+                            <option>Interpol National Central Bureau</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small" for="share_type_select">SHARE TYPE *</label>
+                        <select name="share_type" id="share_type_select" class="form-select" required>
+                            <option value="">-- Select Type --</option>
+                            <option>Case File</option>
+                            <option>FIR Copy</option>
+                            <option>Criminal Dossier</option>
+                            <option>Evidence Report</option>
+                            <option>Full Investigation Package</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small" for="priority_select">PRIORITY LEVEL *</label>
+                        <select name="priority" id="priority_select" class="form-select">
+                            <option value="Normal">Normal</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold small" for="notes_textarea">REASON / NOTES FOR SHARING</label>
+                        <textarea name="notes" id="notes_textarea" class="form-control" rows="3" placeholder="Describe why this case is being shared, any inter-agency overlap, or jurisdiction transfer rationale..."></textarea>
+                    </div>
+                    <div class="col-12">
+                        <div class="alert alert-warning border-0 small mb-0">
+                            <i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i>
+                            By submitting this form, you confirm this share is authorized under the relevant MHA/State directives and the receiving agency has been notified.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success fw-bold px-4">
+                        <i class="bi bi-send-fill me-1" aria-hidden="true"></i> Submit Share Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

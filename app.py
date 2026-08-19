@@ -1208,45 +1208,64 @@ def predictive_analysis():
     )
 
 # ----------------------------------------------------------------------------
-# 13. BIOMETRIC FINGERPRINT RECOGNITION MATCHING ENGINE
+# 13. CROSS-AGENCY CASE SHARING
 # ----------------------------------------------------------------------------
-@app.route('/fingerprint-matching', methods=['GET', 'POST'])
+@app.route('/cross-agency-sharing', methods=['GET', 'POST'])
 @login_required
-def fingerprint_matching():
-    # Retrieve all fingerprint minutiae database records
-    fp_records = database.execute_query(
-        "SELECT fp.*, cr.name as criminal_name, cr.alias, cr.status as criminal_status, cr.phone, cr.gender "
-        "FROM fingerprints fp JOIN criminals cr ON fp.criminal_id = cr.criminal_id ORDER BY cr.name",
-        fetchall=True
-    )
-    
-    match_result = None
+def cross_agency_sharing():
+    """
+    Cross-Agency Sharing module.
+    Allows police stations and agencies to share case files, FIRs, and criminal
+    records with other departments (CBI, State Police, NIA, NCB, ED etc.).
+    """
     if request.method == 'POST':
-        selected_fp_id = request.form.get('fingerprint_id')
-        uploaded_pattern = request.form.get('minutiae_pattern', '').strip()
+        # Submit a new cross-agency share request
+        case_id = request.form.get('case_id')
+        target_agency = request.form.get('target_agency', '').strip()
+        share_type = request.form.get('share_type', '').strip()
+        priority = request.form.get('priority', 'Normal').strip()
+        notes = request.form.get('notes', '').strip()
+        shared_by = session.get('user_id', 1)
         
-        target_record = None
-        if selected_fp_id:
-            target_record = next((f for f in fp_records if str(f['fingerprint_id']) == str(selected_fp_id)), None)
-        elif uploaded_pattern:
-            target_record = fp_records[0] if fp_records else None
-            
-        if target_record:
-            match_result = {
-                'match_found': True,
-                'confidence': 98.7 if selected_fp_id else 94.2,
-                'candidate': target_record,
-                'minutiae_count': target_record['ridge_count'] + 12,
-                'matching_algorithm': 'AFIS minutiae-ridge ridge-count pattern matching'
-            }
+        if case_id and target_agency and share_type:
+            database.execute_query(
+                "INSERT INTO agency_shares (case_id, target_agency, share_type, priority, notes, shared_by_user_id, status, shared_on) "
+                "VALUES (%s, %s, %s, %s, %s, %s, 'Pending', DATE('now'))",
+                params=(case_id, target_agency, share_type, priority, notes, shared_by),
+                commit=True
+            )
+            flash(f'Case file successfully shared with {target_agency}.', 'success')
         else:
-            match_result = {'match_found': False}
-            
+            flash('Please fill all required fields.', 'warning')
+        return redirect(url_for('cross_agency_sharing'))
+
+    # Load existing share requests
+    shares = database.execute_query(
+        "SELECT ag.*, c.case_number, cr.crime_type, cr.location, u.full_name as shared_by_name "
+        "FROM agency_shares ag "
+        "JOIN cases c ON ag.case_id = c.case_id "
+        "JOIN FIR f ON c.fir_id = f.fir_id "
+        "JOIN crimes cr ON f.crime_id = cr.crime_id "
+        "LEFT JOIN users u ON ag.shared_by_user_id = u.user_id "
+        "ORDER BY ag.shared_on DESC",
+        fetchall=True
+    ) or []
+
+    # Load all cases for the share form dropdown
+    cases = database.execute_query(
+        "SELECT c.case_id, c.case_number, cr.crime_type, cr.location "
+        "FROM cases c "
+        "JOIN FIR f ON c.fir_id = f.fir_id "
+        "JOIN crimes cr ON f.crime_id = cr.crime_id "
+        "ORDER BY c.case_number DESC",
+        fetchall=True
+    ) or []
+
     return render_template(
-        'fingerprint_matching.html',
-        active_page='fingerprint_matching',
-        fp_records=fp_records,
-        match_result=match_result
+        'cross_agency_sharing.html',
+        active_page='cross_agency_sharing',
+        shares=shares,
+        cases=cases
     )
 
 # ----------------------------------------------------------------------------

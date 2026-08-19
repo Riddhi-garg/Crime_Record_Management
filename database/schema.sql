@@ -283,20 +283,24 @@ CREATE TABLE anonymous_tips (
         REFERENCES police_officers(officer_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Table 18: fingerprints
--- Biometric minutiae records linked to criminal profiles
-DROP TABLE IF EXISTS fingerprints;
-CREATE TABLE fingerprints (
-    fingerprint_id INT AUTO_INCREMENT PRIMARY KEY,
-    criminal_id INT NOT NULL,
-    finger_position VARCHAR(50) NOT NULL,
-    minutiae_pattern VARCHAR(255) NOT NULL,
-    ridge_count INT DEFAULT 14,
-    pattern_type ENUM('Loop', 'Whorl', 'Arch', 'Accidental') DEFAULT 'Loop',
-    image_url VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_fp_criminal FOREIGN KEY (criminal_id) 
-        REFERENCES criminals(criminal_id) ON DELETE CASCADE ON UPDATE CASCADE
+-- Table 18: agency_shares
+-- Cross-agency case file sharing requests between police departments and central agencies
+DROP TABLE IF EXISTS agency_shares;
+CREATE TABLE agency_shares (
+    share_id INT AUTO_INCREMENT PRIMARY KEY,
+    case_id INT NOT NULL,
+    target_agency VARCHAR(150) NOT NULL,
+    share_type ENUM('Case File', 'FIR Copy', 'Criminal Dossier', 'Evidence Report', 'Full Investigation Package') DEFAULT 'Case File',
+    priority ENUM('Low', 'Normal', 'High', 'Urgent') DEFAULT 'Normal',
+    notes TEXT,
+    shared_by_user_id INT,
+    status ENUM('Pending', 'Acknowledged', 'In Review', 'Actioned', 'Rejected') DEFAULT 'Pending',
+    shared_on DATE NOT NULL,
+    acknowledged_on DATE,
+    CONSTRAINT fk_share_case FOREIGN KEY (case_id)
+        REFERENCES cases(case_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_share_user FOREIGN KEY (shared_by_user_id)
+        REFERENCES users(user_id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- INDEXES FOR OPTIMIZED SEARCH & JOIN PERFORMANCE
